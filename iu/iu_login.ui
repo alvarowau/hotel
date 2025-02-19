@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>391</width>
+    <height>501</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>391</width>
+    <height>501</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>391</width>
+    <height>501</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Estilos generales del formulario */
+QWidget {
+    background-color: #E8EAF6;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/* Estilos para etiquetas (QLabel) */
+QLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333; 
+}
+
+/* Estilos para campos de entrada (QLineEdit) */
+QLineEdit {
+    border: 2px solid #6200EE; /* Borde del color primario de Android */
+    border-radius: 8px;
+    padding: 10px 14px;
+    background-color: #FFFFFF;
+    font-size: 14px;
+    color: #333333;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+QLineEdit:focus {
+    border-color: #03DAC5; /* Cambio al color secundario */
+    box-shadow: 0 0 6px rgba(3, 218, 197, 0.5);
+}
+
+/* Estilos para botones (QPushButton) */
+QPushButton {
+    background-color: #6200EE; /* Color primario de Android */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+QPushButton:hover {
+    background-color: #3700B3; /* Versión más oscura del primario */
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+QPushButton:pressed {
+    background-color: #3100A0;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+}</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>391</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>391</width>
+     <height>501</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>391</width>
+     <height>501</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>97</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+    font-size: 26px;
+    font-weight: bold;
+    color: #6200EE;
+    text-align: center;
+    margin-bottom: 25px;
+}</string>
+      </property>
+      <property name="text">
+       <string>HOTEL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>97</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>USUARIO:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="4">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="3" column="0" colspan="2">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>CONTRASEÑA:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="4">
+     <widget class="QLineEdit" name="lineEdit_2"/>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: #03DAC5; /* Color secundario de Android */
+    color: #000000; /* Texto oscuro para contraste */
+}
+
+QPushButton:hover {
+    background-color: #018786; /* Versión más oscura del secundario */
+}</string>
+      </property>
+      <property name="text">
+       <string>SALIR</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2" colspan="2">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>LOGUEAR</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
