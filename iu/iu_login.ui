@@ -40,43 +40,39 @@ QLabel {
     color: #333333; 
 }
 
-/* Estilos para campos de entrada (QLineEdit) */
 QLineEdit {
-    border: 2px solid #6200EE; /* Borde del color primario de Android */
+    border: 2px solid #6200EE; 
     border-radius: 8px;
     padding: 10px 14px;
     background-color: #FFFFFF;
     font-size: 14px;
     color: #333333;
-    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 QLineEdit:focus {
-    border-color: #03DAC5; /* Cambio al color secundario */
-    box-shadow: 0 0 6px rgba(3, 218, 197, 0.5);
+    border-color: #03DAC5; 
 }
 
-/* Estilos para botones (QPushButton) */
 QPushButton {
-    background-color: #6200EE; /* Color primario de Android */
+    background-color: #6200EE; 
     color: #FFFFFF;
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 14px;
     font-weight: bold;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+
 }
 
 QPushButton:hover {
-    background-color: #3700B3; /* Versión más oscura del primario */
-    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #3700B3; 
+    
 }
 
 QPushButton:pressed {
     background-color: #3100A0;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+    
 }</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
