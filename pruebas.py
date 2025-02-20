@@ -11,6 +11,8 @@ from dao_pruebas.prueba_cliente_dao import (
 )
 from dao_pruebas.prueba_salon_dao import salon_dao_findall
 from dao_pruebas.prueba_tipo_cocina_dao import tipo_cocina_dao_findall
+from dao_pruebas.prueba_reserva_dao import reserva_dao_findall, reserva_dao_findById
+from dao.reserva_dao import ReservaDao
 
 
 def inicio_pruebas():
@@ -20,7 +22,13 @@ def inicio_pruebas():
     conexion = base_datos.connect()
     # cliente_dao_pruebas(conexion)
     # salones_dao_pruebas(conexion)
-    tipo_cocina_dao_pruebas(conexion)
+    # tipo_cocina_dao_pruebas(conexion)
+    reserva_dao_pruebas(conexion)
+
+def reserva_dao_pruebas(conexion):
+    reserva_dao = ReservaDao(conexion)
+    reserva_dao_findall(reserva_dao)
+    reserva_dao_findById(reserva_dao,3)
 
 
 def cliente_dao_pruebas(conexion):
