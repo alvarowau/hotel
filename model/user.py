@@ -13,3 +13,7 @@ class User:
 
     def __repr__(self):
         return f"User(user_id={self.user_id}, username='{self.username}')"
+
+    @classmethod
+    def from_dict(cls, data_dict):
+        return cls(**data_dict)

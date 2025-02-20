@@ -31,7 +31,7 @@ class ClienteDao:
                 cursor.close()
         return None
 
-    def actualizar_cliente(self, id: int, nombre: str, apellidos: str, fec_nac: str, pais: str,
+    def update(self, id: int, nombre: str, apellidos: str, fec_nac: str, pais: str,
                        telefono: str, email: str, sexo: str, menores: int, activo: bool) -> bool:
         """
         Actualiza los datos de un cliente en la base de datos.
@@ -49,12 +49,12 @@ class ClienteDao:
             try:
                 cursor.execute(query, (nombre, apellidos, fec_nac, pais, telefono, email, sexo, menores, activo, id))
                 self.conexion.commit()
-                return cursor.rowcount > 0  
+                return cursor.rowcount > 0
             finally:
                 cursor.close()
         return False
 
-    def desactive_clientes(self, id: int) -> bool:
+    def deactivate(self, id: int) -> bool:
         """
         Desactiva o activa un cliente alternando el estado del campo 'activo'.
         Devuelve True si la actualización fue exitosa, False en caso contrario.
@@ -69,7 +69,7 @@ class ClienteDao:
                 cursor.close()
         return False
 
-    def crear_cliente(self, cliente: Cliente) -> bool:
+    def create(self, cliente: Cliente) -> bool:
         """
         Inserta un nuevo cliente en la base de datos.
 
