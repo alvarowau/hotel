@@ -1,4 +1,10 @@
-from dao.queries import clientes_dao_find_all_actives, clientes_dao_find_by_id, clientes_dao_desctivate,cliente_dao_create
+from dao.queries import (
+    clientes_dao_find_all_actives,
+    clientes_dao_find_by_id,
+    clientes_dao_desctivate,
+    cliente_dao_create,
+    cliente_dao_update,
+)
 from model.cliente import Cliente
 
 
@@ -37,17 +43,25 @@ class ClienteDao:
         Actualiza los datos de un cliente en la base de datos.
         Devuelve True si la actualización fue exitosa, False en caso contrario.
         """
-        query = """
-            UPDATE clientes
-            SET Nombre = %s, Apellidos = %s, Fec_Nac = %s, Pais = %s,
-                Telefono = %s, email = %s, Sexo = %s, Menores = %s, activo = %s
-            WHERE Id = %s;
-        """
 
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(query, (nombre, apellidos, fec_nac, pais, telefono, email, sexo, menores, activo, id))
+                cursor.execute(
+                    cliente_dao_update,
+                    (
+                        nombre,
+                        apellidos,
+                        fec_nac,
+                        pais,
+                        telefono,
+                        email,
+                        sexo,
+                        menores,
+                        activo,
+                        id,
+                    ),
+                )
                 self.conexion.commit()
                 return cursor.rowcount > 0
             finally:
