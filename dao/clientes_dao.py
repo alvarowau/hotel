@@ -1,5 +1,5 @@
-from dao.queris import clientes_dao_find_all_actives, clientes_dao_find_by_id, clientes_dao_desctivate,cliente_dao_create
-from model.clientes import Cliente
+from dao.queries import clientes_dao_find_all_actives, clientes_dao_find_by_id, clientes_dao_desctivate,cliente_dao_create
+from model.cliente import Cliente
 
 
 class ClienteDao:

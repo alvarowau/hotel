@@ -1,4 +1,4 @@
-from dao.queris import user_dao_login
+from dao.queries import user_dao_login
 
 
 class UserDao:

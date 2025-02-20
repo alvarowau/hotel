@@ -15,3 +15,5 @@ INSERT INTO clientes (
 
 
 salones_dao_find_all = "SELECT * FROM salones"
+
+tipo_cocina_dao_find_all = "SELECT * FROM tipos_cocina"

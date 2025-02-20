@@ -1,5 +1,5 @@
 from dao.clientes_dao import ClienteDao
-from model.clientes import Cliente
+from model.cliente import Cliente
 
 
 def cliente_dao_findall(cliente_dao: ClienteDao):

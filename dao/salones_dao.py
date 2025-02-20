@@ -1,4 +1,4 @@
-from dao.queris import salones_dao_find_all
+from dao.queries import salones_dao_find_all
 from model.salon import Salon
 
 
