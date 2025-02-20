@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS reservas (
     tipo_reserva_id INT NOT NULL,
     salon_id INT NOT NULL,
     tipo_cocina_id INT NOT NULL,
-    id_Cliente INT NOT NULL,
+    id_cliente INT NOT NULL,
     fecha DATE NOT NULL,
     ocupacion INT NOT NULL,
     jornadas INT NOT NULL,

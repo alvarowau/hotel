@@ -45,7 +45,7 @@ class ReservaDao:
                         reserva.tipo_reserva_id,
                         reserva.salon_id,
                         reserva.tipo_cocina_id,
-                        reserva.id_Cliente,
+                        reserva.id_cliente,
                         reserva.fecha,
                         reserva.ocupacion,
                         reserva.jornadas,
@@ -53,10 +53,12 @@ class ReservaDao:
                         reserva.reserva_id,
                     ),
                 )
+                self.conexion.commit()
+                return cursor.rowcount > 0
             finally:
                 cursor.close()
         else:
-            return None
+            return False
 
     def convertir_reserva(self, reserva):
         return Reserva.from_dict(reserva)
