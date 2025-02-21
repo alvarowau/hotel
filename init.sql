@@ -98,7 +98,7 @@ VALUES
     (15, 'David', 'Vargas Del Santo', '16Q', '2006-11-16', 'Reino Unido', '703998180', 'dvargas@gmail.com', 'H', 0),
     (16, 'Diego', 'Barroso Torres', '1R', '2006-07-28', 'España', '711133226', 'dbarroso@gmail.com', 'H', 0);
 
-INSERT INTO reservas (reserva_id, tipo_reserva_id, salon_id, tipo_cocina_id, id_Cliente, fecha, ocupacion, jornadas, habitaciones)
+INSERT INTO reservas (reserva_id, tipo_reserva_id, salon_id, tipo_cocina_id, id_cliente, fecha, ocupacion, jornadas, habitaciones)
 VALUES
     (1, 1, 1, 1, 1, '2024-12-20', 35, 0, 0),
     (2, 2, 2, 2, 2, '2025-01-14', 2, 0, 0),

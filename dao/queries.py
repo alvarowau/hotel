@@ -18,6 +18,12 @@ INSERT INTO clientes (
 )
 """
 
+reserva_dao_create = """
+INSERT INTO reservas ( tipo_reserva_id, salon_id, tipo_cocina_id, id_cliente, fecha, ocupacion, jornadas, habitaciones)
+VALUES
+    (%s, %s, %s, %s, %s, %s, %s, %s)
+"""
+
 
 salones_dao_find_all = "SELECT * FROM salones"
 

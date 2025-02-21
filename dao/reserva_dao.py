@@ -2,6 +2,7 @@ from dao.queries import (
     reserva_dao_update,
     reservas_dao_find_all,
     reservas_dao_find_byId,
+    reserva_dao_create
 )
 from model.reserva import Reserva
 
@@ -34,6 +35,20 @@ class ReservaDao:
             finally:
                 cursor.close()
         return None
+
+    def creatre(self, reserva:Reserva):
+        if self.conexion:
+            cursor = self.conexion.cursor(dictionary=True)
+            try:
+                cursor.execute(reserva_dao_create,(
+                  reserva.tipo_reserva_id, reserva.salon_id, reserva.tipo_cocina_id, reserva.id_cliente, reserva.fecha,
+                  reserva.ocupacion, reserva.jornadas, reserva.habitaciones
+                ))
+                self.conexion.commit()
+                return cursor.rowcount > 0
+            finally:
+                cursor.close()
+        return False
 
     def update(self, reserva: Reserva):
         if self.conexion:

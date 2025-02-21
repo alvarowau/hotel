@@ -1,4 +1,5 @@
 from dao.reserva_dao import ReservaDao
+from model.reserva import Reserva
 
 
 def reserva_dao_findall(reserva_dao: ReservaDao):
@@ -27,3 +28,22 @@ def reserva_dao_update(reserva_dao :ReservaDao):
         print(f"la reserva se actualizo correctamente: {result}")
     else:
         print("No se encontro reserva")
+
+def reserva_dao_create(reserva_dao :ReservaDao):
+    print("")
+    print("-----Creacion de Reserva-----")
+    reserva = Reserva(
+        tipo_reserva_id=2,
+        salon_id=2,
+        tipo_cocina_id=1,
+        id_cliente=5,
+        fecha="2025-02-22",
+        ocupacion=4,
+        jornadas=2,
+        habitaciones=1,
+    )
+    result = reserva_dao.creatre(reserva)
+    if result:
+        print("La reserva se creo")
+    else:
+        print("La reserva NO se creo")
