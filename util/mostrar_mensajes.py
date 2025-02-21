@@ -1,16 +1,20 @@
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMessageBox
 
 
 class MensajePersonalizado(QMessageBox):
-    def __init__(self, titulo, mensaje, icono=None, detalles=None):
+    def __init__(
+        self, titulo, mensaje, icono=None, detalles=None, mostrar_detalles=False
+    ):
         """
-        Inicializa un cuadro de mensaje personalizado.
+        Inicializa un cuadro de mensaje personalizado con un diseño acorde a la interfaz.
 
         Args:
             titulo (str): El título del mensaje.
             mensaje (str): El texto principal del mensaje.
-            icono (QMessageBox.Icon, opcional): El ícono a mostrar en el cuadro de mensaje. Por defecto es Information.
-            detalles (str, opcional): Detalles adicionales que se muestran al expandir el mensaje.
+            icono (QMessageBox.Icon, opcional): Ícono a mostrar en el cuadro de mensaje.
+            detalles (str, opcional): Detalles adicionales a mostrar en errores.
+            mostrar_detalles (bool): Si es True, se muestra el botón "Hide Details...".
         """
         super().__init__()
         self.setWindowTitle(titulo)
@@ -18,6 +22,7 @@ class MensajePersonalizado(QMessageBox):
         self.setStandardButtons(QMessageBox.StandardButton.Ok)
         self.setDefaultButton(QMessageBox.StandardButton.Ok)
 
+        # Estilos con colores personalizados para cada tipo de mensaje
         self.setStyleSheet(
             """
             QMessageBox {
@@ -30,80 +35,121 @@ class MensajePersonalizado(QMessageBox):
             }
             QLabel {
                 font-weight: bold;
-                color: #2A9D8F;
+                color: #333333;
                 font-size: 14px;
             }
             QPushButton {
-                background-color: #2A9D8F;
+                background-color: #007BFF; /* Azul claro para información */
                 color: #FFFFFF;
                 border-radius: 8px;
                 padding: 6px 12px;
                 font-size: 14px;
-                border: 2px solid #2A9D8F;
+                border: 2px solid #007BFF;
             }
             QPushButton:hover {
-                background-color: #A4C639;
-                border: 2px solid #A4C639;
+                background-color: #0056b3;
+                border: 2px solid #0056b3;
             }
             QPushButton:pressed {
-                background-color: #207567;
-                border: 2px solid #207567;
+                background-color: #004085;
+                border: 2px solid #004085;
+            }
+            /* Color para error */
+            QMessageBox[critical="true"] {
+                color: #D32F2F;
+            }
+            QLabel[critical="true"] {
+                color: #D32F2F;
+            }
+            QPushButton[critical="true"] {
+                background-color: #D32F2F;
+                color: #FFFFFF;
+                border: 2px solid #D32F2F;
+            }
+            QPushButton[critical="true"]:hover {
+                background-color: #B71C1C;
+            }
+            QPushButton[critical="true"]:pressed {
+                background-color: #9A0007;
+            }
+            /* Color para advertencia */
+            QMessageBox[warning="true"] {
+                color: #FF9800;
+            }
+            QLabel[warning="true"] {
+                color: #FF9800;
+            }
+            QPushButton[warning="true"] {
+                background-color: #FF9800;
+                color: #FFFFFF;
+                border: 2px solid #FF9800;
+            }
+            QPushButton[warning="true"]:hover {
+                background-color: #F57C00;
+            }
+            QPushButton[warning="true"]:pressed {
+                background-color: #E65100;
             }
         """
         )
 
         self.setIcon(icono if icono else QMessageBox.Icon.Information)
 
-        if detalles:
+        if detalles and mostrar_detalles:
             self.setDetailedText(detalles)
 
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
     @staticmethod
-    def mostrar(titulo, mensaje, icono=None, detalles=None):
+    def mostrar(titulo, mensaje, icono=None, detalles=None, mostrar_detalles=False):
         """
         Muestra un cuadro de mensaje personalizado.
 
         Args:
             titulo (str): El título del mensaje.
             mensaje (str): El texto principal del mensaje.
-            icono (QMessageBox.Icon, opcional): El ícono a mostrar en el cuadro de mensaje. Por defecto es Information.
-            detalles (str, opcional): Detalles adicionales que se muestran al expandir el mensaje.
+            icono (QMessageBox.Icon, opcional): Ícono a mostrar en el cuadro de mensaje.
+            detalles (str, opcional): Detalles adicionales a mostrar en errores.
+            mostrar_detalles (bool): Si es True, se muestra el botón "Hide Details...".
         """
-        dialogo = MensajePersonalizado(titulo, mensaje, icono, detalles)
+        dialogo = MensajePersonalizado(
+            titulo, mensaje, icono, detalles, mostrar_detalles
+        )
         dialogo.exec()
 
 
 def mostrar_error(mensaje, detalles=None):
     """
-    Muestra un cuadro de mensaje de error.
+    Muestra un cuadro de mensaje de error con opción de ver detalles.
 
     Args:
-        mensaje (str): El mensaje de error a mostrar.
+        mensaje (str): Mensaje de error a mostrar.
         detalles (str, opcional): Detalles adicionales del error.
     """
-    MensajePersonalizado.mostrar("Error", mensaje, QMessageBox.Icon.Critical, detalles)
-
-
-def mostrar_informacion(mensaje, detalles=None):
-    """
-    Muestra un cuadro de mensaje de información.
-
-    Args:
-        mensaje (str): El mensaje de información a mostrar.
-        detalles (str, opcional): Detalles adicionales de la información.
-    """
     MensajePersonalizado.mostrar(
-        "Información", mensaje, QMessageBox.Icon.Information, detalles
+        "Error",
+        mensaje,
+        QMessageBox.Icon.Critical,
+        detalles,
+        mostrar_detalles=True,
     )
 
 
-def mostrar_advertencia(mensaje, detalles=None):
+def mostrar_informacion(mensaje):
     """
-    Muestra un cuadro de mensaje de advertencia.
+    Muestra un cuadro de mensaje de información sin detalles.
 
     Args:
-        mensaje (str): El mensaje de advertencia a mostrar.
-        detalles (str, opcional): Detalles adicionales de la advertencia.
+        mensaje (str): Mensaje de información a mostrar.
     """
-    MensajePersonalizado.mostrar(
-        "Advertencia", mensaje, QMessageBox.Icon.Warning, detalles
-    )
+    MensajePersonalizado.mostrar("Información", mensaje, QMessageBox.Icon.Information)
+
+
+def mostrar_advertencia(mensaje):
+    """
+    Muestra un cuadro de mensaje de advertencia sin opción de detalles.
+
+    Args:
+        mensaje (str): Mensaje de advertencia a mostrar.
+    """
+    MensajePersonalizado.mostrar("Advertencia", mensaje, QMessageBox.Icon.Warning)
