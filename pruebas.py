@@ -2,6 +2,7 @@ from bbdd.conexion_mysql import MySQLConnectionManager
 from dao.clientes_dao import ClienteDao
 from dao.salones_dao import SalonDao
 from dao.tipo_cocina_dao import TipoCocinaDao
+from dao.tipo_reserva_dao import TipoReservasDao
 from dao_pruebas.prueba_cliente_dao import (
     cliente_dao_create,
     cliente_dao_desactivate,
@@ -10,6 +11,7 @@ from dao_pruebas.prueba_cliente_dao import (
     cliente_dao_update,
 )
 from dao_pruebas.prueba_salon_dao import salon_dao_findall
+from dao_pruebas.prueba_tipo_reservas import tipo_reservas_dao_find_all
 from dao_pruebas.prueba_tipo_cocina_dao import tipo_cocina_dao_findall
 from dao_pruebas.prueba_reserva_dao import reserva_dao_findall, reserva_dao_findById, reserva_dao_update, reserva_dao_create
 from dao.reserva_dao import ReservaDao
@@ -24,6 +26,7 @@ def inicio_pruebas():
     salones_dao_pruebas(conexion)
     tipo_cocina_dao_pruebas(conexion)
     reserva_dao_pruebas(conexion)
+    tipo_reserva_dao_pruebas(conexion)
 
 def reserva_dao_pruebas(conexion):
     reserva_dao = ReservaDao(conexion)
@@ -41,6 +44,10 @@ def cliente_dao_pruebas(conexion):
     cliente_dao_desactivate(cliente_dao)
     cliente_dao_update(cliente_dao)
     cliente_dao_create(cliente_dao)
+
+def tipo_reserva_dao_pruebas(conexion):
+    tipo_reservas_dao = TipoReservasDao(conexion)
+    tipo_reservas_dao_find_all(tipo_reservas_dao)
 
 
 def salones_dao_pruebas(conexion):

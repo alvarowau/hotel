@@ -24,6 +24,7 @@ VALUES
     (%s, %s, %s, %s, %s, %s, %s, %s)
 """
 
+tipo_reserva_dao_find_all = "SELECT * FROM tipos_reservas"
 
 salones_dao_find_all = "SELECT * FROM salones"
 

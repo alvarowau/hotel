@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (
 
 from dao.user_dao import UserDao
 from iu.iu_login import Ui_Form
-from util.mostrar_mensajes import mostrar_advertencia, mostrar_informacion, mostrar_error
+from util.mostrar_mensajes import mostrar_advertencia, mostrar_error
 
 
 class LoginController(QWidget):
@@ -28,9 +28,7 @@ class LoginController(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.user_dao = UserDao(conexion)
-        self.ui.lineEdit_2.setEchoMode(
-            QLineEdit.EchoMode.Password
-        )
+        self.ui.lineEdit_2.setEchoMode(QLineEdit.EchoMode.Password)
 
         self.ui.pushButton.clicked.connect(self.cerrar_ventana)
         self.ui.pushButton_2.clicked.connect(self.loguear_usuario)

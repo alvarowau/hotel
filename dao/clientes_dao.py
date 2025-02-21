@@ -39,11 +39,6 @@ class ClienteDao:
 
     def update(self, id: int, nombre: str, apellidos: str, fec_nac: str, pais: str,
                        telefono: str, email: str, sexo: str, menores: int, activo: bool) -> bool:
-        """
-        Actualiza los datos de un cliente en la base de datos.
-        Devuelve True si la actualización fue exitosa, False en caso contrario.
-        """
-
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
@@ -69,10 +64,6 @@ class ClienteDao:
         return False
 
     def deactivate(self, id: int) -> bool:
-        """
-        Desactiva o activa un cliente alternando el estado del campo 'activo'.
-        Devuelve True si la actualización fue exitosa, False en caso contrario.
-        """
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
@@ -84,15 +75,6 @@ class ClienteDao:
         return False
 
     def create(self, cliente: Cliente) -> bool:
-        """
-        Inserta un nuevo cliente en la base de datos.
-
-        Args:
-            cliente (Cliente): Objeto Cliente con la información a registrar.
-
-        Returns:
-            bool: True si la inserción fue exitosa, False en caso contrario.
-        """
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
