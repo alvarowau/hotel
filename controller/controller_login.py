@@ -1,9 +1,4 @@
-from PySide6.QtWidgets import (
-    QLineEdit,
-    QMessageBox,
-    QWidget,
-)
-
+from PySide6.QtWidgets import QLineEdit, QMessageBox, QWidget
 from dao.user_dao import UserDao
 from iu.iu_login import Ui_Form
 from util.mostrar_mensajes import mostrar_advertencia, mostrar_error
@@ -54,6 +49,6 @@ class LoginController(QWidget):
             return
 
         if self.user_dao.login(username=usuario, password=password):
-            mostrar_advertencia("Login correcto")
+            mostrar_advertencia("Inicio de sesión exitoso")
         else:
             mostrar_error("Credenciales incorrectas")

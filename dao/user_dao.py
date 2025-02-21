@@ -3,27 +3,37 @@ from dao.queries import user_dao_login
 
 class UserDao:
     """
-    Clase que maneja las operaciones relacionadas con los usuarios en la base de datos.
+    Clase que maneja las operaciones de acceso a datos (DAO) para la entidad User.
+
+    Esta clase proporciona métodos para interactuar con la base de datos, como la autenticación
+    de usuarios (login).
+
+    Atributos:
+        conexion: Objeto de conexión a la base de datos.
+
+    Métodos:
+        login(username, password): Verifica las credenciales de un usuario.
     """
 
     def __init__(self, conexion):
         """
-        Inicializa el DAO con una conexión a la base de datos.
+        Inicializa una instancia de UserDao.
 
-        :param conexion: Objeto de conexión a la base de datos.
+        Args:
+            conexion: Objeto de conexión a la base de datos.
         """
         self.conexion = conexion
 
     def login(self, username: str, password: str) -> bool:
         """
-        Verifica si el usuario y la contraseña proporcionados son válidos.
+        Verifica las credenciales de un usuario en la base de datos.
 
-        Ejecuta una consulta en la base de datos para comprobar la existencia del usuario
-        con las credenciales dadas.
+        Args:
+            username (str): El nombre de usuario.
+            password (str): La contraseña del usuario.
 
-        :param username: Nombre de usuario a verificar.
-        :param password: Contraseña del usuario.
-        :return: True si las credenciales son válidas, False en caso contrario.
+        Returns:
+            bool: True si las credenciales son válidas, False en caso contrario.
         """
         if self.conexion:
             cursor = self.conexion.cursor()

@@ -1,4 +1,21 @@
 class Cliente:
+    """
+    Representa un cliente en el sistema.
+
+    Atributos:
+        Id (int, opcional): Identificador único del cliente.
+        Nombre (str, opcional): Nombre del cliente.
+        Apellidos (str, opcional): Apellidos del cliente.
+        Num_Identificacion (str, opcional): Número de identificación del cliente.
+        Fec_Nac (str, opcional): Fecha de nacimiento del cliente.
+        Pais (str, opcional): País del cliente.
+        Telefono (str, opcional): Número de teléfono del cliente.
+        email (str, opcional): Dirección de correo electrónico del cliente.
+        Sexo (str, opcional): Sexo del cliente.
+        Menores (bool, opcional): Indica si el cliente es menor de edad.
+        activo (int, opcional): Estado de actividad del cliente. Por defecto es 1 (activo).
+    """
+
     def __init__(
         self,
         Id=None,
@@ -14,20 +31,20 @@ class Cliente:
         activo=1,
     ):
         """
-        Constructor de la clase Cliente.
+        Inicializa una nueva instancia de la clase Cliente.
 
         Args:
-            Id (int, opcional): Identificador único del cliente (clave primaria). Autoincremental en la base de datos.
+            Id (int, opcional): Identificador único del cliente.
             Nombre (str, opcional): Nombre del cliente.
             Apellidos (str, opcional): Apellidos del cliente.
-            Num_Identificacion (str, opcional): Número de identificación único del cliente.
-            Fec_Nac (date, opcional): Fecha de nacimiento del cliente.
-            Pais (str, opcional): País de residencia del cliente.
+            Num_Identificacion (str, opcional): Número de identificación del cliente.
+            Fec_Nac (str, opcional): Fecha de nacimiento del cliente.
+            Pais (str, opcional): País del cliente.
             Telefono (str, opcional): Número de teléfono del cliente.
-            email (str, opcional): Correo electrónico del cliente.
-            Sexo (str, opcional): Sexo del cliente ('H' para Hombre, 'M' para Mujer, 'N' para No binario, etc.).
-            Menores (int, opcional): Indica si el cliente tiene menores a su cargo (1 para Sí, 0 para No).
-            activo (int, opcional): Indica si el cliente está activo (1) o inactivo (0). Por defecto es 1 (activo).
+            email (str, opcional): Dirección de correo electrónico del cliente.
+            Sexo (str, opcional): Sexo del cliente.
+            Menores (bool, opcional): Indica si el cliente es menor de edad.
+            activo (int, opcional): Estado de actividad del cliente.
         """
         self.Id = Id
         self.Nombre = Nombre
@@ -43,39 +60,134 @@ class Cliente:
 
     def __str__(self):
         """
-        Método para representar el objeto Cliente como una cadena (string).
-        Útil para debuggear o imprimir información del cliente.
+        Devuelve una representación en forma de cadena del cliente.
+
+        Returns:
+            str: Cadena que representa al cliente.
         """
         return f"Cliente(Id={self.Id}, Nombre='{self.Nombre}', Apellidos='{self.Apellidos}', Num_Identificacion='{self.Num_Identificacion}')"
 
     @classmethod
     def from_dict(cls, data_dict):
         """
-        Método de clase para crear un objeto Cliente a partir de un diccionario.
+        Crea una instancia de Cliente a partir de un diccionario de datos.
 
         Args:
-            data_dict (dict): Diccionario que contiene los datos del cliente.
-                              Las claves del diccionario deberían corresponder
-                              a los atributos de la clase Cliente (Id, Nombre, Apellidos, etc.).
+            data_dict (dict): Diccionario con los datos del cliente.
 
         Returns:
-            Cliente: Un nuevo objeto Cliente instanciado con los datos del diccionario.
-
-        Ejemplo de uso:
-        cliente_dict = {
-            "Nombre": "Elena",
-            "Apellidos": "Martínez Sanz",
-            "Num_Identificacion": "32C",
-            "Fec_Nac": "1988-05-10",
-            "Pais": "Francia",
-            "Telefono": "777111222",
-            "email": "elena.martinez@gmail.com",
-            "Sexo": "M",
-            "Menores": 1,
-            "activo": 1,
-            "Id": 32 # (Opcional, si el Id ya existe o lo quieres especificar)
-        }
-        cliente_desde_dict = Cliente.from_dict(cliente_dict)
-        print(cliente_desde_dict)
+            Cliente: Instancia de la clase Cliente.
         """
         return cls(**data_dict)
+
+    # Getters y Setters
+
+    @property
+    def Id(self):
+        """Obtiene el identificador del cliente."""
+        return self._Id
+
+    @Id.setter
+    def Id(self, value):
+        """Establece el identificador del cliente."""
+        self._Id = value
+
+    @property
+    def Nombre(self):
+        """Obtiene el nombre del cliente."""
+        return self._Nombre
+
+    @Nombre.setter
+    def Nombre(self, value):
+        """Establece el nombre del cliente."""
+        self._Nombre = value
+
+    @property
+    def Apellidos(self):
+        """Obtiene los apellidos del cliente."""
+        return self._Apellidos
+
+    @Apellidos.setter
+    def Apellidos(self, value):
+        """Establece los apellidos del cliente."""
+        self._Apellidos = value
+
+    @property
+    def Num_Identificacion(self):
+        """Obtiene el número de identificación del cliente."""
+        return self._Num_Identificacion
+
+    @Num_Identificacion.setter
+    def Num_Identificacion(self, value):
+        """Establece el número de identificación del cliente."""
+        self._Num_Identificacion = value
+
+    @property
+    def Fec_Nac(self):
+        """Obtiene la fecha de nacimiento del cliente."""
+        return self._Fec_Nac
+
+    @Fec_Nac.setter
+    def Fec_Nac(self, value):
+        """Establece la fecha de nacimiento del cliente."""
+        self._Fec_Nac = value
+
+    @property
+    def Pais(self):
+        """Obtiene el país del cliente."""
+        return self._Pais
+
+    @Pais.setter
+    def Pais(self, value):
+        """Establece el país del cliente."""
+        self._Pais = value
+
+    @property
+    def Telefono(self):
+        """Obtiene el número de teléfono del cliente."""
+        return self._Telefono
+
+    @Telefono.setter
+    def Telefono(self, value):
+        """Establece el número de teléfono del cliente."""
+        self._Telefono = value
+
+    @property
+    def email(self):
+        """Obtiene la dirección de correo electrónico del cliente."""
+        return self._email
+
+    @email.setter
+    def email(self, value):
+        """Establece la dirección de correo electrónico del cliente."""
+        self._email = value
+
+    @property
+    def Sexo(self):
+        """Obtiene el sexo del cliente."""
+        return self._Sexo
+
+    @Sexo.setter
+    def Sexo(self, value):
+        """Establece el sexo del cliente."""
+        self._Sexo = value
+
+    @property
+    def Menores(self):
+        """Obtiene si el cliente es menor de edad."""
+        return self._Menores
+
+    @Menores.setter
+    def Menores(self, value):
+        """Establece si el cliente es menor de edad."""
+        self._Menores = value
+
+    @property
+    def activo(self):
+        """Obtiene el estado de actividad del cliente."""
+        return self._activo
+
+    @activo.setter
+    def activo(self, value):
+        """Establece el estado de actividad del cliente."""
+        self._activo = value
