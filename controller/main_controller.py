@@ -15,8 +15,8 @@ class MainController(QMainWindow):
         self.conexion = conexion
 
         # Controladores de las vistas
-        self.clientes_controller = ClientesController()
-        self.reserva_controller = ReservasControler()
+        self.clientes_controller = ClientesController(self.conexion)
+        self.reserva_controller = ReservasControler(self.conexion)
 
         # Agregar las vistas al QStackedWidget
         self.ui.stackedWidget.addWidget(self.clientes_controller)

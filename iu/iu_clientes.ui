@@ -75,16 +75,6 @@ QPushButton:pressed {
 }
 </string>
   </property>
-  <widget class="QTableWidget" name="tableWidget_clientes">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>701</width>
-     <height>571</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
@@ -214,6 +204,23 @@ QPushButton:pressed {
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QTableView" name="tableView_clientes">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>711</width>
+     <height>571</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableView {
+    background-color: #2C2C2C;  /* Fondo oscuro para la tabla */
+    border-radius: 8px;  /* Bordes redondeados */
+    color: #E8EAF6;  /* Texto claro */
+}</string>
+   </property>
   </widget>
  </widget>
  <resources/>

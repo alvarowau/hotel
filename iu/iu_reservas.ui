@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RESERVAS</class>
- <widget class="QWidget" name="RESERVAS">
+ <class>reservas</class>
+ <widget class="QWidget" name="reservas">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,41 +23,42 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>RESERVAS</string>
+   <string>Reservas</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {
-    background-color: #121212;  
+   <string notr="true">/* Estilos generales del formulario */
+QWidget {
+    background-color: #121212;  /* Fondo oscuro */
     border-radius: 12px;
     padding: 24px;
-    color: #E8EAF6;  
+    color: #E8EAF6;  /* Texto claro */
 }
 
-
+/* Estilos para etiquetas (QLabel) */
 QLabel {
     font-size: 14px;
     font-weight: 600;
-    color: #E8EAF6;  
+    color: #E8EAF6;  /* Texto claro en modo oscuro */
 }
 
-
+/* Estilo para los campos de texto (QLineEdit) */
 QLineEdit {
     border: 2px solid #6200EE;
     border-radius: 8px;
     padding: 10px 14px;
-    background-color: #333333;  
+    background-color: #333333;  /* Fondo oscuro para el campo de texto */
     font-size: 14px;
-    color: #E8EAF6;  
+    color: #E8EAF6;  /* Texto claro */
 }
 
 QLineEdit:focus {
-    border-color: #03DAC5; 
+    border-color: #03DAC5;  /* Resalta el borde cuando está enfocado */
 }
 
-
+/* Estilo para los botones (QPushButton) */
 QPushButton {
-    background-color: #6200EE;  
-    color: #FFFFFF;  
+    background-color: #6200EE;  /* Fondo del botón */
+    color: #FFFFFF;  /* Texto blanco */
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
@@ -66,25 +67,14 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: #3700B3;
+    background-color: #3700B3;  /* Fondo más oscuro cuando se pasa el mouse */
 }
 
 QPushButton:pressed {
-    background-color: #3100A0;
+    background-color: #3100A0;  /* Fondo aún más oscuro cuando se presiona */
 }
-
 </string>
   </property>
-  <widget class="QTableWidget" name="tableWidget_reservas">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>701</width>
-     <height>571</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QWidget" name="widget_2" native="true">
    <property name="geometry">
     <rect>
@@ -196,16 +186,16 @@ QPushButton:pressed {
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
-    background-color: #03DAC5; 
-    color: #000000; 
+   background-color: #03DAC5;
+    color: #000000;
 }
 
 QPushButton:hover {
-    background-color: #018786;  
+    background-color: #018786;
+	background-color: #018786;
 }
-
 QPushButton:pressed {
-    background-color: #01675B;  
+    background-color: #01675B;  /* Fondo aún más oscuro cuando se presiona el botón */
 }</string>
       </property>
       <property name="text">
@@ -214,6 +204,23 @@ QPushButton:pressed {
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QTableView" name="tableView_reservas">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>711</width>
+     <height>571</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableView {
+    background-color: #2C2C2C;  /* Fondo oscuro para la tabla */
+    border-radius: 8px;  /* Bordes redondeados */
+    color: #E8EAF6;  /* Texto claro */
+}</string>
+   </property>
   </widget>
  </widget>
  <resources/>

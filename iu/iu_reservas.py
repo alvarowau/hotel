@@ -14,72 +14,70 @@ from PySide6.QtWidgets import (
     QPushButton,
     QSizePolicy,
     QSpacerItem,
-    QTableWidget,
+    QTableView,
     QWidget,
 )
 
 
-class Ui_RESERVAS(object):
-    def setupUi(self, RESERVAS):
-        if not RESERVAS.objectName():
-            RESERVAS.setObjectName("RESERVAS")
-        RESERVAS.resize(900, 600)
-        RESERVAS.setMinimumSize(QSize(900, 600))
-        RESERVAS.setMaximumSize(QSize(900, 600))
-        RESERVAS.setStyleSheet(
+class Ui_reservas(object):
+    def setupUi(self, reservas):
+        if not reservas.objectName():
+            reservas.setObjectName("reservas")
+        reservas.resize(900, 600)
+        reservas.setMinimumSize(QSize(900, 600))
+        reservas.setMaximumSize(QSize(900, 600))
+        reservas.setStyleSheet(
+            "/* Estilos generales del formulario */\n"
             "QWidget {\n"
-            "    background-color: #121212;  \n"
+            "    background-color: #121212;  /* Fondo oscuro */\n"
             "    border-radius: 12px;\n"
             "    padding: 24px;\n"
-            "    color: #E8EAF6;  \n"
+            "    color: #E8EAF6;  /* Texto claro */\n"
             "}\n"
             "\n"
-            "\n"
+            "/* Estilos para etiquetas (QLabel) */\n"
             "QLabel {\n"
             "    font-size: 14px;\n"
             "    font-weight: 600;\n"
-            "    color: #E8EAF6;  \n"
+            "    color: #E8EAF6;  /* Texto claro en modo oscuro */\n"
             "}\n"
             "\n"
-            "\n"
+            "/* Estilo para los campos de texto (QLineEdit) */\n"
             "QLineEdit {\n"
             "    border: 2px solid #6200EE;\n"
             "    border-radius: 8px;\n"
             "    padding: 10px 14px;\n"
-            "    background-color: #333333;  \n"
+            "    background-color: #333333;  /* Fondo oscuro para el campo de texto */\n"
             "    font-size: 14px;\n"
-            "    color: #E8EAF6;  \n"
+            "    color: #E8EAF6;  /* Texto claro */\n"
             "}\n"
             "\n"
             "QLineEdit:focus {\n"
-            "    border-color: #03DAC5; \n"
+            "    border-color: #03DAC5;  /* Resalta el borde cuando est\u00e1 enfocado */\n"
             "}\n"
             "\n"
-            "\n"
+            "/* Estilo para los botones (QPushButton) */\n"
             "QPushButton {\n"
-            "    background-color: #6200EE;  \n"
-            "    color: #FFFFFF;  \n"
+            "    background-color: #6200EE;  /* Fondo del bot\u00f3n */\n"
+            "    color: #FFFFFF;  /* Texto blanco */\n"
             "    border: none;\n"
-            "    border-radius: 8px;\n"
+            "    b"
+            "order-radius: 8px;\n"
             "    padding: 12px 20px;\n"
             "    font-size: 14px;\n"
             "    font-weight: bold;\n"
             "}\n"
             "\n"
             "QPushButton:hover {\n"
-            "    background-color: #3700B3;\n"
+            "    background-color: #3700B3;  /* Fondo m\u00e1s oscuro cuando se pasa el mouse */\n"
             "}\n"
             "\n"
             "QPushButton:pressed {\n"
-            "    background-color: #3100A0;\n"
+            "    background-color: #3100A0;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona */\n"
             "}\n"
-            "\n"
             ""
         )
-        self.tableWidget_reservas = QTableWidget(RESERVAS)
-        self.tableWidget_reservas.setObjectName("tableWidget_reservas")
-        self.tableWidget_reservas.setGeometry(QRect(20, 10, 701, 571))
-        self.widget_2 = QWidget(RESERVAS)
+        self.widget_2 = QWidget(reservas)
         self.widget_2.setObjectName("widget_2")
         self.widget_2.setGeometry(QRect(740, 0, 144, 591))
         self.formLayout_2 = QFormLayout(self.widget_2)
@@ -131,38 +129,49 @@ class Ui_RESERVAS(object):
         self.salir_button.setMinimumSize(QSize(120, 40))
         self.salir_button.setStyleSheet(
             "QPushButton {\n"
-            "    background-color: #03DAC5; \n"
-            "    color: #000000; \n"
+            "   background-color: #03DAC5;\n"
+            "    color: #000000;\n"
             "}\n"
             "\n"
             "QPushButton:hover {\n"
-            "    background-color: #018786;  \n"
+            "    background-color: #018786;\n"
+            "	background-color: #018786;\n"
             "}\n"
-            "\n"
             "QPushButton:pressed {\n"
-            "    background-color: #01675B;  \n"
+            "    background-color: #01675B;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona el bot\u00f3n */\n"
             "}"
         )
 
         self.formLayout_2.setWidget(7, QFormLayout.LabelRole, self.salir_button)
 
-        self.retranslateUi(RESERVAS)
+        self.tableView_reservas = QTableView(reservas)
+        self.tableView_reservas.setObjectName("tableView_reservas")
+        self.tableView_reservas.setGeometry(QRect(10, 20, 711, 571))
+        self.tableView_reservas.setStyleSheet(
+            "QTableView {\n"
+            "    background-color: #2C2C2C;  /* Fondo oscuro para la tabla */\n"
+            "    border-radius: 8px;  /* Bordes redondeados */\n"
+            "    color: #E8EAF6;  /* Texto claro */\n"
+            "}"
+        )
 
-        QMetaObject.connectSlotsByName(RESERVAS)
+        self.retranslateUi(reservas)
+
+        QMetaObject.connectSlotsByName(reservas)
 
     # setupUi
 
-    def retranslateUi(self, RESERVAS):
-        RESERVAS.setWindowTitle(
-            QCoreApplication.translate("RESERVAS", "RESERVAS", None)
+    def retranslateUi(self, reservas):
+        reservas.setWindowTitle(
+            QCoreApplication.translate("reservas", "Reservas", None)
         )
         self.modificar_button.setText(
-            QCoreApplication.translate("RESERVAS", "Modificar", None)
+            QCoreApplication.translate("reservas", "Modificar", None)
         )
-        self.nueva_button.setText(QCoreApplication.translate("RESERVAS", "Nueva", None))
+        self.nueva_button.setText(QCoreApplication.translate("reservas", "Nueva", None))
         self.eliminar_button.setText(
-            QCoreApplication.translate("RESERVAS", "Eliminar", None)
+            QCoreApplication.translate("reservas", "Eliminar", None)
         )
-        self.salir_button.setText(QCoreApplication.translate("RESERVAS", "SALIR", None))
+        self.salir_button.setText(QCoreApplication.translate("reservas", "SALIR", None))
 
     # retranslateUi
