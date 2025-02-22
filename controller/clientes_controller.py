@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
 )
 
 from dao.clientes_dao import ClienteDao
-from util.mostrar_mensajes import confirmar_eliminacion_usuario, mostrar_error
+from util.mostrar_mensajes import confirmar_mensaje, mostrar_error
 
 
 class ClientesController(QWidget):
@@ -99,24 +99,32 @@ class ClientesController(QWidget):
         try:
             index = self.tableView.selectionModel().currentIndex()
             if index.isValid():
-                print(f"ID Cliente: {self.obtener_id_desde_index(index)}")
+                id_cliente = self.obtener_id_desde_index(index)
+                nombre_completo = self.clientes_dao.find_nombre_by_id(id_cliente)
+                mensaje = (
+                    f"¿Está seguro que desea modificar el cliente {nombre_completo}?"
+                )
+                respuesta_ventana = confirmar_mensaje(mensaje)
+                if respuesta_ventana:
+                    print("va a modificar el cliente")
+                    self.recargar_tabla()
             else:
                 mostrar_error("No se ha seleccionado ningún cliente")
         except Exception:
-            mostrar_error("Ocurrió un error al intentar modificar el cliente")
+            mostrar_error("Ocurrió un error al intentar eliminar el cliente")
 
     def eliminar_cliente(self):
         try:
             index = self.tableView.selectionModel().currentIndex()
             if index.isValid():
-                id = self.obtener_id_desde_index(index)
-                nombre_completo = self.clientes_dao.find_nombre_by_id(id)
+                id_cliente = self.obtener_id_desde_index(index)
+                nombre_completo = self.clientes_dao.find_nombre_by_id(id_cliente)
                 mensaje = (
-                    f"¿Está seguro que desea eliminar al usuario {nombre_completo}?"
+                    f"¿Está seguro que desea eliminar al cliente {nombre_completo}?"
                 )
-                respuesta_ventana = confirmar_eliminacion_usuario(mensaje)
+                respuesta_ventana = confirmar_mensaje(mensaje)
                 if respuesta_ventana:
-                    self.clientes_dao.deactivate(id)
+                    self.clientes_dao.deactivate(id_cliente)
                     self.recargar_tabla()
             else:
                 mostrar_error("No se ha seleccionado ningún cliente")

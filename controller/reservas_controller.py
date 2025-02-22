@@ -14,7 +14,7 @@ from dao.reserva_dao import ReservaDao
 from dao.salones_dao import SalonDao
 from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
-from util.mostrar_mensajes import confirmar_eliminacion_usuario, mostrar_error
+from util.mostrar_mensajes import confirmar_mensaje, mostrar_error
 
 
 class ReservasControler(QWidget):
@@ -145,7 +145,7 @@ class ReservasControler(QWidget):
                 id_reserva = self.obtener_id_desde_index(index)
                 print(f"el id de la reserva {id_reserva}")
                 resultado = self.reserva_dao.traer_details_delete(id_reserva)
-                respuesta_ventana = confirmar_eliminacion_usuario(
+                respuesta_ventana = confirmar_mensaje(
                     f"Quiere modificar la reserva {resultado}"
                 )
                 if respuesta_ventana:
@@ -163,7 +163,7 @@ class ReservasControler(QWidget):
                 id_reserva = self.obtener_id_desde_index(index)
                 print(f"el id de la reserva {id_reserva}")
                 resultado = self.reserva_dao.traer_details_delete(id_reserva)
-                respuesta_ventana = confirmar_eliminacion_usuario(
+                respuesta_ventana = confirmar_mensaje(
                     f"Quiere eliminar la reserva {resultado}"
                 )
                 if respuesta_ventana:
