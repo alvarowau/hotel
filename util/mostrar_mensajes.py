@@ -26,37 +26,37 @@ class MensajePersonalizado(QMessageBox):
         self.setStyleSheet(
             """
             QMessageBox {
-                background-color: #F8F9FA;
+                background-color: #121212;  /* Fondo oscuro */
                 font-family: "Segoe UI", Arial, sans-serif;
                 font-size: 14px;
-                color: #333333;
-                border: 2px solid #CCCCCC;
+                color: #E0E0E0;  /* Texto en gris claro */
+                border: 2px solid #333333;
                 border-radius: 8px;
             }
             QLabel {
                 font-weight: bold;
-                color: #333333;
+                color: #E0E0E0;  /* Texto claro */
                 font-size: 14px;
             }
             QPushButton {
-                background-color: #007BFF; /* Azul claro para información */
+                background-color: #6200EE;  /* Violeta para botones */
                 color: #FFFFFF;
                 border-radius: 8px;
                 padding: 6px 12px;
                 font-size: 14px;
-                border: 2px solid #007BFF;
+                border: 2px solid #6200EE;
             }
             QPushButton:hover {
-                background-color: #0056b3;
-                border: 2px solid #0056b3;
+                background-color: #3700B3;
+                border: 2px solid #3700B3;
             }
             QPushButton:pressed {
-                background-color: #004085;
-                border: 2px solid #004085;
+                background-color: #3100A0;
+                border: 2px solid #3100A0;
             }
             /* Color para error */
             QMessageBox[critical="true"] {
-                color: #D32F2F;
+                color: #D32F2F;  /* Rojo para errores */
             }
             QLabel[critical="true"] {
                 color: #D32F2F;
@@ -74,7 +74,7 @@ class MensajePersonalizado(QMessageBox):
             }
             /* Color para advertencia */
             QMessageBox[warning="true"] {
-                color: #FF9800;
+                color: #FF9800;  /* Naranja para advertencias */
             }
             QLabel[warning="true"] {
                 color: #FF9800;

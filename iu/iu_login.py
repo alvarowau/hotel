@@ -20,17 +20,17 @@ from PySide6.QtWidgets import (
 )
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName("Form")
-        Form.resize(391, 501)
-        Form.setMinimumSize(QSize(391, 501))
-        Form.setMaximumSize(QSize(391, 501))
-        Form.setStyleSheet(
+class Ui_Loguin(object):
+    def setupUi(self, Loguin):
+        if not Loguin.objectName():
+            Loguin.setObjectName("Loguin")
+        Loguin.resize(391, 501)
+        Loguin.setMinimumSize(QSize(391, 501))
+        Loguin.setMaximumSize(QSize(391, 501))
+        Loguin.setStyleSheet(
             "/* Estilos generales del formulario */\n"
             "QWidget {\n"
-            "    background-color: #E8EAF6;\n"
+            "    background-color: #121212;  /* Fondo oscuro */\n"
             "    border-radius: 12px;\n"
             "    padding: 24px;\n"
             "}\n"
@@ -39,45 +39,51 @@ class Ui_Form(object):
             "QLabel {\n"
             "    font-size: 14px;\n"
             "    font-weight: 600;\n"
-            "    color: #333333; \n"
+            "    color: #E0E0E0;  /* Texto en gris claro */\n"
             "}\n"
             "\n"
+            "/* Estilos para QLineEdit */\n"
             "QLineEdit {\n"
-            "    border: 2px solid #6200EE; \n"
+            "    border: 2px solid #BB86FC;  /* Color violeta claro */\n"
             "    border-radius: 8px;\n"
             "    padding: 10px 14px;\n"
-            "    background-color: #FFFFFF;\n"
+            "    background-color: #333333;  /* Fondo oscuro para el input */\n"
             "    font-size: 14px;\n"
-            "    color: #333333;\n"
+            "    color: #E0E0E0;  /* Texto claro en los inputs */\n"
             "}\n"
             "\n"
             "QLineEdit:focus {\n"
-            "    border-color: #03DAC5; \n"
+            "    border-color: #03DAC5;  /* Color verde cuando el input est\u00e1 enfocado */\n"
             "}\n"
             "\n"
+            "/* Estilos para QPushButton */\n"
             "QPushButton {\n"
-            "    background-color: #6200EE; \n"
-            "    color: #FFFFFF;\n"
+            "    background-color: #6200EE;  /* Violeta principal */\n"
+            "    color: #FFFFFF;  /* Texto blanco */\n"
             "    border: none;\n"
             "    border-radius: 8px;\n"
             "    padding: 12px 20px;\n"
+            ""
             "    font-size: 14px;\n"
             "    font-weight: bold;\n"
-            "\n"
-            "\n"
             "}\n"
             "\n"
             "QPushButton:hover {\n"
-            "    background-color: #3700B3; \n"
-            "    \n"
+            "    background-color: #3700B3;  /* Violeta m\u00e1s oscuro al pasar el mouse */\n"
             "}\n"
             "\n"
             "QPushButton:pressed {\n"
-            "    background-color: #3100A0;\n"
-            "    \n"
-            "}"
+            "    background-color: #3100A0;  /* Violeta m\u00e1s oscuro al presionar el bot\u00f3n */\n"
+            "}\n"
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            ""
         )
-        self.widget = QWidget(Form)
+        self.widget = QWidget(Loguin)
         self.widget.setObjectName("widget")
         self.widget.setGeometry(QRect(0, 0, 391, 501))
         self.widget.setMinimumSize(QSize(391, 501))
@@ -150,20 +156,20 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.pushButton_2, 5, 2, 1, 2)
 
-        self.retranslateUi(Form)
+        self.retranslateUi(Loguin)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(Loguin)
 
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", "Form", None))
-        self.label.setText(QCoreApplication.translate("Form", "HOTEL", None))
-        self.label_2.setText(QCoreApplication.translate("Form", "USUARIO:", None))
+    def retranslateUi(self, Loguin):
+        Loguin.setWindowTitle(QCoreApplication.translate("Loguin", "ACCESO", None))
+        self.label.setText(QCoreApplication.translate("Loguin", "HOTEL", None))
+        self.label_2.setText(QCoreApplication.translate("Loguin", "USUARIO:", None))
         self.label_3.setText(
-            QCoreApplication.translate("Form", "CONTRASE\u00d1A:", None)
+            QCoreApplication.translate("Loguin", "CONTRASE\u00d1A:", None)
         )
-        self.pushButton.setText(QCoreApplication.translate("Form", "SALIR", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Form", "LOGUEAR", None))
+        self.pushButton.setText(QCoreApplication.translate("Loguin", "SALIR", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Loguin", "LOGUEAR", None))
 
     # retranslateUi

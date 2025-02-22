@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>clientes</class>
+ <widget class="QWidget" name="clientes">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Clientes</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Estilos generales del formulario */
+QWidget {
+    background-color: #121212;  /* Fondo oscuro */
+    border-radius: 12px;
+    padding: 24px;
+    color: #E8EAF6;  /* Texto claro */
+}
+
+/* Estilos para etiquetas (QLabel) */
+QLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #E8EAF6;  /* Texto claro en modo oscuro */
+}
+
+/* Estilo para los campos de texto (QLineEdit) */
+QLineEdit {
+    border: 2px solid #6200EE;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background-color: #333333;  /* Fondo oscuro para el campo de texto */
+    font-size: 14px;
+    color: #E8EAF6;  /* Texto claro */
+}
+
+QLineEdit:focus {
+    border-color: #03DAC5;  /* Resalta el borde cuando está enfocado */
+}
+
+/* Estilo para los botones (QPushButton) */
+QPushButton {
+    background-color: #6200EE;  /* Fondo del botón */
+    color: #FFFFFF;  /* Texto blanco */
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3700B3;  /* Fondo más oscuro cuando se pasa el mouse */
+}
+
+QPushButton:pressed {
+    background-color: #3100A0;  /* Fondo aún más oscuro cuando se presiona */
+}
+</string>
+  </property>
+  <widget class="QTableWidget" name="tableWidget_clientes">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>701</width>
+     <height>571</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>0</y>
+     <width>144</width>
+     <height>591</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <item row="0" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>53</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="modificar_button">
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Modificar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>53</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="nueva_button">
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Nueva</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>53</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="eliminar_button">
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Eliminar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>188</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="salir_button">
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+   background-color: #03DAC5;
+    color: #000000;
+}
+
+QPushButton:hover {
+    background-color: #018786;
+	background-color: #018786;
+}
+QPushButton:pressed {
+    background-color: #01675B;  /* Fondo aún más oscuro cuando se presiona el botón */
+}</string>
+      </property>
+      <property name="text">
+       <string>SALIR</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

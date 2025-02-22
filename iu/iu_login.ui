@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Loguin</class>
+ <widget class="QWidget" name="Loguin">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,12 +23,12 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>ACCESO</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* Estilos generales del formulario */
 QWidget {
-    background-color: #E8EAF6;
+    background-color: #121212;  /* Fondo oscuro */
     border-radius: 12px;
     padding: 24px;
 }
@@ -37,43 +37,48 @@ QWidget {
 QLabel {
     font-size: 14px;
     font-weight: 600;
-    color: #333333; 
+    color: #E0E0E0;  /* Texto en gris claro */
 }
 
+/* Estilos para QLineEdit */
 QLineEdit {
-    border: 2px solid #6200EE; 
+    border: 2px solid #BB86FC;  /* Color violeta claro */
     border-radius: 8px;
     padding: 10px 14px;
-    background-color: #FFFFFF;
+    background-color: #333333;  /* Fondo oscuro para el input */
     font-size: 14px;
-    color: #333333;
+    color: #E0E0E0;  /* Texto claro en los inputs */
 }
 
 QLineEdit:focus {
-    border-color: #03DAC5; 
+    border-color: #03DAC5;  /* Color verde cuando el input está enfocado */
 }
 
+/* Estilos para QPushButton */
 QPushButton {
-    background-color: #6200EE; 
-    color: #FFFFFF;
+    background-color: #6200EE;  /* Violeta principal */
+    color: #FFFFFF;  /* Texto blanco */
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 14px;
     font-weight: bold;
-
-
 }
 
 QPushButton:hover {
-    background-color: #3700B3; 
-    
+    background-color: #3700B3;  /* Violeta más oscuro al pasar el mouse */
 }
 
 QPushButton:pressed {
-    background-color: #3100A0;
-    
-}</string>
+    background-color: #3100A0;  /* Violeta más oscuro al presionar el botón */
+}
+
+
+
+
+
+
+</string>
   </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
@@ -99,9 +104,6 @@ QPushButton:pressed {
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>97</width>
@@ -128,9 +130,6 @@ QPushButton:pressed {
     </item>
     <item row="0" column="3">
      <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>97</width>

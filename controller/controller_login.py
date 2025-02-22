@@ -1,7 +1,9 @@
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QLineEdit, QMessageBox, QWidget
+
 from dao.user_dao import UserDao
-from iu.iu_login import Ui_Form
-from util.mostrar_mensajes import mostrar_advertencia, mostrar_error
+from iu.iu_login import Ui_Loguin
+from util.mostrar_mensajes import mostrar_error
 
 
 class LoginController(QWidget):
@@ -13,6 +15,8 @@ class LoginController(QWidget):
     correspondientes según el resultado.
     """
 
+    login_exitoso = Signal()
+
     def __init__(self, conexion):
         """
         Inicializa el controlador del login.
@@ -20,7 +24,7 @@ class LoginController(QWidget):
         :param conexion: Objeto de conexión a la base de datos.
         """
         super().__init__()
-        self.ui = Ui_Form()
+        self.ui = Ui_Loguin()
         self.ui.setupUi(self)
         self.user_dao = UserDao(conexion)
         self.ui.lineEdit_2.setEchoMode(QLineEdit.EchoMode.Password)
@@ -49,6 +53,7 @@ class LoginController(QWidget):
             return
 
         if self.user_dao.login(username=usuario, password=password):
-            mostrar_advertencia("Inicio de sesión exitoso")
+            self.login_exitoso.emit()
+            self.close()
         else:
             mostrar_error("Credenciales incorrectas")
