@@ -1,8 +1,9 @@
 from dao.queries import (
+    reserva_dao_create,
+    reserva_dao_details_delete,
     reserva_dao_update,
     reservas_dao_find_all,
     reservas_dao_find_byId,
-    reserva_dao_create,
 )
 from model.reserva import Reserva
 
@@ -153,3 +154,14 @@ class ReservaDao:
             Reserva: Un objeto Reserva creado a partir del diccionario.
         """
         return Reserva.from_dict(reserva)
+
+    def traer_details_delete(self, id_reserva):
+        if self.conexion:
+            cursor = self.conexion.cursor(dictionary=True)
+            try:
+                cursor.execute(reserva_dao_details_delete, (id_reserva,))
+                result = cursor.fetchone()
+                return f"{result['Nombre']} {result['Apellidos']} en la fecha {result['fecha']}"
+            finally:
+                cursor.close()
+        return None

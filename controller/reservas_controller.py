@@ -14,6 +14,7 @@ from dao.reserva_dao import ReservaDao
 from dao.salones_dao import SalonDao
 from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
+from util.mostrar_mensajes import confirmar_eliminacion_usuario, mostrar_error
 
 
 class ReservasControler(QWidget):
@@ -24,10 +25,9 @@ class ReservasControler(QWidget):
         self.conexion = conexion
         if self.conexion:
             self.iniciar_daos()
-            self.traer_listas()  # Se debe llamar a traer_listas antes de acceder a las listas
-            self.traer_reservas()
-            self.iniciar_tabla()  # Llamar a iniciar_tabla antes de llenar los datos
-            self.llenar_datos()
+            self.traer_listas()
+            self.iniciar_tabla()
+            self.recargar_tabla()
             self.iniciar_interface()
         else:
             print("No hay conexion")
@@ -66,29 +66,25 @@ class ReservasControler(QWidget):
         self.lista_reservas = self.reserva_dao.find_all()
 
     def iniciar_interface(self):
-        # Crear los botones
         self.nueva_button = QPushButton("Nueva")
         self.modificar_button = QPushButton("Modificar")
         self.eliminar_button = QPushButton("Eliminar")
         self.salir_button = QPushButton("Salir")
 
-        # Conectar los botones a las funciones
         self.nueva_button.clicked.connect(self.agregar_reserva)
         self.modificar_button.clicked.connect(self.modificar_reserva)
         self.eliminar_button.clicked.connect(self.eliminar_reserva)
         self.salir_button.clicked.connect(self.salir)
 
-        # Layout para los botones
         button_layout = QHBoxLayout()
         button_layout.addWidget(self.nueva_button)
         button_layout.addWidget(self.modificar_button)
         button_layout.addWidget(self.eliminar_button)
         button_layout.addWidget(self.salir_button)
 
-        # Layout principal
         layout = QVBoxLayout(self)
-        layout.addWidget(self.tableView)  # Agregar la tabla
-        layout.addLayout(button_layout)  # Agregar los botones
+        layout.addWidget(self.tableView)
+        layout.addLayout(button_layout)
         self.setLayout(layout)
 
     def iniciar_tabla(self):
@@ -98,20 +94,21 @@ class ReservasControler(QWidget):
 
         headers = [
             "Tipo reserva",
-            "Salon id",
-            "tipo cocina",
-            "cliente",
-            "fecha",
+            "Salón",
+            "Tipo cocina",
+            "Cliente",
+            "Fecha",
         ]
         self.model.setHorizontalHeaderLabels(headers)
         header = self.tableView.horizontalHeader()
         for i in range(self.model.columnCount()):
-            header.setSectionResizeMode(
-                i, QHeaderView.ResizeMode.Stretch
-            )  # Ajuste automático
+            header.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
 
-    def llenar_datos(self):
-        """Llena la tabla con datos de prueba."""
+    def recargar_tabla(self):
+        """Recarga la tabla con los datos actualizados."""
+        self.model.removeRows(0, self.model.rowCount())
+        self.traer_reservas()
+
         if self.lista_reservas:
             for reserva in self.lista_reservas:
                 fila = [
@@ -122,53 +119,54 @@ class ReservasControler(QWidget):
                     str(reserva.fecha),
                 ]
 
-                # Crear los elementos de la fila con los datos visibles
                 elementos = [QStandardItem(dato) for dato in fila]
-
-                # Crear el item oculto para el id_reserva (NO se añade a la fila visual)
                 id_reserva_item = QStandardItem(str(reserva.reserva_id))
                 id_reserva_item.setEditable(False)
-                id_reserva_item.setData(True, Qt.ItemDataRole.UserRole)  # Marcar como "oculto"
+                id_reserva_item.setData(True, Qt.ItemDataRole.UserRole)
 
-                # Añadir los elementos visibles a la fila
                 self.model.appendRow(elementos)
-
-                # Almacenar el id_reserva_item en un diccionario o lista para acceder a él después
-                # Por ejemplo, puedes usar un diccionario donde la clave sea el número de fila
-                if not hasattr(self, 'id_items'): # Verificar si el atributo existe
-                    self.id_items = {} # Inicializar el diccionario
+                if not hasattr(self, "id_items"):
+                    self.id_items = {}
                 self.id_items[self.model.rowCount() - 1] = id_reserva_item
 
     def agregar_reserva(self):
         print("Agregar reserva")
-        # Aquí puedes abrir una ventana emergente o un formulario para agregar una nueva reserva.
+
+    def obtener_id_desde_index(self, index):
+        row = index.row()
+        id_reserva_item = self.id_items[row]
+        return id_reserva_item.text()
 
     def modificar_reserva(self):
-        print("Modificar reserva")
-        index = self.tableView.selectionModel().currentIndex()
-
-        if index.isValid():
-            row = index.row()
-            print(f"Fila seleccionada: {row}")
-
-            # Obtener el id_reserva del diccionario
-            if hasattr(self, 'id_items') and row in self.id_items:
-                id_reserva_item = self.id_items[row]
-                id_reserva = id_reserva_item.text()
-                print(f"ID Reserva: {id_reserva}")
+        try:
+            index = self.tableView.selectionModel().currentIndex()
+            if index.isValid():
+                # print(f"ID reserva: {self.obtener_id_desde_index(index)}")
+                id_reserva = self.obtener_id_desde_index(index)
+                self.reserva_dao.traer_details_delete(id_reserva)
             else:
-                print("ID de reserva no encontrado.")
-                return # Salir de la función si no se encuentra el ID
-
-            # El resto de la función modificar_reserva sigue igual...
-
-        else:
-            print("No se ha seleccionado ninguna fila")
+                mostrar_error("No se ha seleccionado ninguna reserva")
+        except Exception:
+            mostrar_error("Ocurrió un error al intentar modificar reserva")
 
     def eliminar_reserva(self):
-        print("Eliminar reserva")
-        # Aquí puedes agregar lógica para eliminar una reserva seleccionada.
+        try:
+            index = self.tableView.selectionModel().currentIndex()
+            if index.isValid():
+                # print(f"ID reserva: {self.obtener_id_desde_index(index)}")
+                id_reserva = self.obtener_id_desde_index(index)
+                print(f"el id de la reserva {id_reserva}")
+                resultado = self.reserva_dao.traer_details_delete(id_reserva)
+                respuesta_ventana = confirmar_eliminacion_usuario(
+                    f"Quiere eliminar la reserva {resultado}"
+                )
+                if respuesta_ventana:
+                    print(f"Quiere eliminar el usuario {id_reserva}")
+            else:
+                print("entro en el else")
+                mostrar_error("No se ha seleccionado ninguna reserva")
+        except Exception:
+            mostrar_error("Ocurrió un error al intentar modificar reserva")
 
     def salir(self):
-        print("Saliendo de la aplicación")
-        self.close()
+        print("salir")

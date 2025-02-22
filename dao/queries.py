@@ -179,3 +179,10 @@ Args:
 Returns:
     bool: True si la actualización fue exitosa, False en caso contrario.
 """
+reserva_dao_details_delete = """
+SELECT c.Nombre, c.Apellidos, r.fecha
+FROM reservas r
+JOIN clientes c ON r.id_cliente = c.id
+WHERE r.reserva_id = %s;
+
+"""
