@@ -44,7 +44,6 @@ class ClienteDao:
             result = cursor.fetchone()
             cursor.close()
             if result:
-                print(result)
                 return f"{result[0]} {result[1]}"
             else:
                 return None

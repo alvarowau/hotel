@@ -153,3 +153,21 @@ def mostrar_advertencia(mensaje):
         mensaje (str): Mensaje de advertencia a mostrar.
     """
     MensajePersonalizado.mostrar("Advertencia", mensaje, QMessageBox.Icon.Warning)
+
+
+def confirmar_eliminacion_usuario(mensaje):
+    """
+    Muestra un cuadro de diálogo de confirmación para eliminar un usuario.
+
+    Returns:
+        bool: True si el usuario confirma, False en caso contrario.
+    """
+    dialogo = QMessageBox()
+    dialogo.setWindowTitle("Confirmación")
+    dialogo.setText(mensaje)
+    dialogo.setStandardButtons(
+        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+    )
+    dialogo.setDefaultButton(QMessageBox.StandardButton.No)
+    dialogo.setIcon(QMessageBox.Icon.Warning)
+    return dialogo.exec() == QMessageBox.StandardButton.Yes

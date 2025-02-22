@@ -1,3 +1,4 @@
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import (
     QHBoxLayout,
@@ -7,11 +8,12 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
+from dao.clientes_dao import ClienteDao
 from dao.reserva_dao import ReservaDao
 from dao.salones_dao import SalonDao
 from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
-from dao.clientes_dao import ClienteDao
 
 
 class ReservasControler(QWidget):
@@ -119,8 +121,23 @@ class ReservasControler(QWidget):
                     str(self.cliente_dao.find_nombre_by_id(reserva.id_cliente)),
                     str(reserva.fecha),
                 ]
+
+                # Crear los elementos de la fila con los datos visibles
                 elementos = [QStandardItem(dato) for dato in fila]
+
+                # Crear el item oculto para el id_reserva (NO se añade a la fila visual)
+                id_reserva_item = QStandardItem(str(reserva.reserva_id))
+                id_reserva_item.setEditable(False)
+                id_reserva_item.setData(True, Qt.ItemDataRole.UserRole)  # Marcar como "oculto"
+
+                # Añadir los elementos visibles a la fila
                 self.model.appendRow(elementos)
+
+                # Almacenar el id_reserva_item en un diccionario o lista para acceder a él después
+                # Por ejemplo, puedes usar un diccionario donde la clave sea el número de fila
+                if not hasattr(self, 'id_items'): # Verificar si el atributo existe
+                    self.id_items = {} # Inicializar el diccionario
+                self.id_items[self.model.rowCount() - 1] = id_reserva_item
 
     def agregar_reserva(self):
         print("Agregar reserva")
@@ -128,7 +145,25 @@ class ReservasControler(QWidget):
 
     def modificar_reserva(self):
         print("Modificar reserva")
-        # Aquí puedes agregar lógica para modificar una reserva existente.
+        index = self.tableView.selectionModel().currentIndex()
+
+        if index.isValid():
+            row = index.row()
+            print(f"Fila seleccionada: {row}")
+
+            # Obtener el id_reserva del diccionario
+            if hasattr(self, 'id_items') and row in self.id_items:
+                id_reserva_item = self.id_items[row]
+                id_reserva = id_reserva_item.text()
+                print(f"ID Reserva: {id_reserva}")
+            else:
+                print("ID de reserva no encontrado.")
+                return # Salir de la función si no se encuentra el ID
+
+            # El resto de la función modificar_reserva sigue igual...
+
+        else:
+            print("No se ha seleccionado ninguna fila")
 
     def eliminar_reserva(self):
         print("Eliminar reserva")
