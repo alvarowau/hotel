@@ -8,7 +8,7 @@ Returns:
 """
 
 # Consultas relacionadas con clientes
-clientes_dao_find_all_actives = "SELECT * FROM clientes WHERE activo = True"
+cliente_dao_find_all_actives = "SELECT * FROM clientes WHERE activo = True"
 """
 Consulta SQL para obtener todos los clientes activos.
 
@@ -16,7 +16,9 @@ Returns:
     list[dict]: Lista de diccionarios con los datos de los clientes activos.
 """
 
-clientes_dao_find_by_id = "SELECT * FROM clientes WHERE id = %s AND activo = True"
+cliente_dao_find_nombre_by_id = "SELECT nombre, apellidos FROM clientes WHERE id = %s"
+
+cliente_dao_find_by_id = "SELECT * FROM clientes WHERE id = %s AND activo = True"
 """
 Consulta SQL para buscar un cliente por su ID, siempre que esté activo.
 
@@ -27,7 +29,7 @@ Returns:
     dict: Un diccionario con los datos del cliente encontrado.
 """
 
-clientes_dao_desctivate = "UPDATE clientes SET activo = NOT activo WHERE Id = %s"
+cliente_dao_desctivate = "UPDATE clientes SET activo = NOT activo WHERE Id = %s"
 """
 Consulta SQL para desactivar o reactivar un cliente por su ID.
 
