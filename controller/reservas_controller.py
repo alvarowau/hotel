@@ -143,7 +143,13 @@ class ReservasControler(QWidget):
             if index.isValid():
                 # print(f"ID reserva: {self.obtener_id_desde_index(index)}")
                 id_reserva = self.obtener_id_desde_index(index)
-                self.reserva_dao.traer_details_delete(id_reserva)
+                print(f"el id de la reserva {id_reserva}")
+                resultado = self.reserva_dao.traer_details_delete(id_reserva)
+                respuesta_ventana = confirmar_eliminacion_usuario(
+                    f"Quiere modificar la reserva {resultado}"
+                )
+                if respuesta_ventana:
+                    print(f"Quiere modificar la reserva {id_reserva}")
             else:
                 mostrar_error("No se ha seleccionado ninguna reserva")
         except Exception:
@@ -161,9 +167,8 @@ class ReservasControler(QWidget):
                     f"Quiere eliminar la reserva {resultado}"
                 )
                 if respuesta_ventana:
-                    print(f"Quiere eliminar el usuario {id_reserva}")
+                    print(f"Quiere eliminar la reserva {id_reserva}")
             else:
-                print("entro en el else")
                 mostrar_error("No se ha seleccionado ninguna reserva")
         except Exception:
             mostrar_error("Ocurrió un error al intentar modificar reserva")
