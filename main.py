@@ -1,69 +1,85 @@
 import sys
 from PySide6.QtWidgets import QApplication
+from bbdd.conexion_mysql import MySQLConnectionManager
+from bbdd.comprobar_conexion import ComprobadorMySQL
+from controller.conexion_controller import ConexionController
 from controller.controller_login import LoginController
 from controller.main_controller import MainController
-from bbdd.conexion_mysql import MySQLConnectionManager
+
+datos_conexion = {
+    "host": "localhost",
+    "user": "root",
+    "password": "root",
+    "database": "hotel",
+    "port": "3307",
+}
+
+app = None
 
 
-def inicio_aplicacion():
-    """Inicia la aplicación estableciendo la conexión con la base de datos.
+def iniciar_aplicacion():
+    """Inicia la aplicación con la ventana de configuración primero."""
+    iniciar_configuracion()
 
-    Conecta a la base de datos MySQL y, si la conexión es exitosa, inicia la interfaz gráfica
-    llamando a `inciar_grafica`. Si la conexión falla, imprime un mensaje de error en la consola.
 
-    """
-    base_datos = MySQLConnectionManager(
-        host="localhost", user="hotel", password="hotel", database="hotel"
-    )
-    conexion = base_datos.connect()
+def iniciar_configuracion():
+    """Muestra la ventana de configuración."""
+    global app
+    if app is None:
+        app = QApplication(
+            []
+        )  # Se asegura de que solo haya una instancia de QApplication
+    ventana = ConexionController(datos_conexion)
+    ventana.configuracion_finalizada.connect(actualizar_datos_y_reiniciar)
+    ventana.show()
+    if QApplication.instance() is None:
+        app.exec()
+
+
+def actualizar_datos_y_reiniciar(nuevos_datos):
+    """Actualiza los datos de conexión."""
+    global datos_conexion
+    datos_conexion = nuevos_datos
+    print("Datos actualizados.")
+    # Aquí no iniciamos el login de forma inmediata, solo configuramos los datos
+
+
+def iniciar_login():
+    """Este método inicia la ventana de login cuando se llame explícitamente."""
+    global app
+    if app is None:
+        app = QApplication(
+            []
+        )  # Se asegura de que solo haya una instancia de QApplication
+    base_datos = MySQLConnectionManager(**datos_conexion)
+    try:
+        conexion = base_datos.connect()
+    except Exception:
+        conexion = None
     if conexion:
-        inciar_grafica(conexion)
+        login_controller = LoginController(conexion=conexion)
+        main_controller = MainController(conexion=conexion)
+        login_controller.login_exitoso.connect(
+            lambda: abrir_ventana_principal(main_controller, login_controller)
+        )
+        login_controller.show()
+        if QApplication.instance() is None:
+            sys.exit(app.exec())
     else:
-        print("No se ha conectado")
-
-
-def inciar_grafica(conexion):
-    """Inicia la interfaz gráfica y muestra la ventana de login.
-
-    Crea una instancia de `QApplication` y configura los controladores para las vistas de login
-    y la ventana principal. Conecta la señal de login exitoso para mostrar la ventana principal
-    y cerrar la ventana de login.
-
-    Args:
-        conexion (MySQLConnectionManager): Objeto de conexión a la base de datos.
-    """
-    app = QApplication(sys.argv)
-
-    # Crear el controlador de login
-    login_controller = LoginController(conexion=conexion)
-
-    # Crear el controlador de la ventana principal
-    main_controller = MainController(conexion=conexion)
-
-    # Conectar la señal de login exitoso para abrir la ventana principal
-    login_controller.login_exitoso.connect(
-        lambda: abrir_ventana_principal(main_controller, login_controller)
-    )
-
-    # Mostrar la ventana de login
-    login_controller.show()
-
-    sys.exit(app.exec())
+        print("No se pudo conectar a la base de datos. Iniciando configuración.")
+        iniciar_configuracion()
 
 
 def abrir_ventana_principal(main_controller, login_controller):
-    """Abre la ventana principal y cierra la ventana de login.
+    """Abre la ventana principal y cierra la ventana de inicio de sesión."""
+    main_controller.show()
+    login_controller.close()
 
-    Esta función se llama cuando el login es exitoso. Muestra la ventana principal y
-    cierra la ventana de login.
 
-    Args:
-        main_controller (MainController): Controlador de la ventana principal.
-        login_controller (LoginController): Controlador de la ventana de login.
-    """
-    main_controller.show()  # Mostrar la ventana principal
-    login_controller.close()  # Cerrar la ventana de login
+def iniciar():
+    """Inicia la aplicación."""
+    iniciar_aplicacion()
 
 
 if __name__ == "__main__":
-    inicio_aplicacion()
+    iniciar()

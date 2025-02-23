@@ -8,170 +8,123 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import QCoreApplication, QMetaObject, QRect, QSize
-from PySide6.QtWidgets import (
-    QFormLayout,
-    QPushButton,
-    QSizePolicy,
-    QSpacerItem,
-    QTableView,
-    QWidget,
-)
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHeaderView, QLabel,
+    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
+    QSpacerItem, QTableView, QWidget)
+
+class Ui_Reservas(object):
+    def setupUi(self, Reservas):
+        if not Reservas.objectName():
+            Reservas.setObjectName(u"Reservas")
+        Reservas.resize(1080, 640)
+        Reservas.setMinimumSize(QSize(1080, 640))
+        Reservas.setStyleSheet(u"QWidget {\n"
+"    background-color: #121212; \n"
+"    color: #E8EAF6; \n"
+"}")
+        self.title_label = QLabel(Reservas)
+        self.title_label.setObjectName(u"title_label")
+        self.title_label.setGeometry(QRect(30, 10, 171, 51))
+        font = QFont()
+        font.setBold(True)
+        font.setItalic(True)
+        self.title_label.setFont(font)
+        self.title_label.setStyleSheet(u"QLabel {\n"
+"    color: #FFFFFF;  /* Texto blanco */\n"
+"    font-size: 24px;  /* Tama\u00f1o de la fuente m\u00e1s grande */\n"
+"    font-weight: 600;\n"
+"    padding: 10px;  /* Espaciado */\n"
+"}\n"
+"")
+        self.reservas_tableView = QTableView(Reservas)
+        self.reservas_tableView.setObjectName(u"reservas_tableView")
+        self.reservas_tableView.setGeometry(QRect(180, 80, 871, 431))
+        self.salones_listWidget = QListWidget(Reservas)
+        self.salones_listWidget.setObjectName(u"salones_listWidget")
+        self.salones_listWidget.setGeometry(QRect(10, 180, 151, 331))
+        self.salones_label = QLabel(Reservas)
+        self.salones_label.setObjectName(u"salones_label")
+        self.salones_label.setGeometry(QRect(10, 120, 141, 41))
+        self.salones_label.setStyleSheet(u"QLabel {\n"
+"    color: #FFFFFF;  /* Texto blanco */\n"
+"    font-size: 18px;  /* Tama\u00f1o de la fuente m\u00e1s grande */\n"
+"    font-weight: 600;\n"
+"    padding: 10px;  /* Espaciado */\n"
+"}\n"
+"")
+        self.widget = QWidget(Reservas)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(300, 550, 501, 61))
+        self.gridLayout = QGridLayout(self.widget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.nuevo_pushButton = QPushButton(self.widget)
+        self.nuevo_pushButton.setObjectName(u"nuevo_pushButton")
+        self.nuevo_pushButton.setStyleSheet(u"QPushButton {\n"
+"    background-color: #6200EE; \n"
+"    color: #FFFFFF; \n"
+"    border-radius: 8px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"    padding: 12px 20px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #3700B3;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3100A0;\n"
+"}\n"
+"")
+
+        self.gridLayout.addWidget(self.nuevo_pushButton, 0, 0, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(217, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer, 0, 1, 1, 1)
+
+        self.saber_pushButton = QPushButton(self.widget)
+        self.saber_pushButton.setObjectName(u"saber_pushButton")
+        self.saber_pushButton.setStyleSheet(u"QPushButton {\n"
+"    background-color: #6200EE; \n"
+"    color: #FFFFFF; \n"
+"    border-radius: 8px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"    padding: 12px 20px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #3700B3;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3100A0;\n"
+"}\n"
+"")
+
+        self.gridLayout.addWidget(self.saber_pushButton, 0, 2, 1, 1)
 
 
-class Ui_reservas(object):
-    def setupUi(self, reservas):
-        if not reservas.objectName():
-            reservas.setObjectName("reservas")
-        reservas.resize(900, 600)
-        reservas.setMinimumSize(QSize(900, 600))
-        reservas.setMaximumSize(QSize(900, 600))
-        reservas.setStyleSheet(
-            "/* Estilos generales del formulario */\n"
-            "QWidget {\n"
-            "    background-color: #121212;  /* Fondo oscuro */\n"
-            "    border-radius: 12px;\n"
-            "    padding: 24px;\n"
-            "    color: #E8EAF6;  /* Texto claro */\n"
-            "}\n"
-            "\n"
-            "/* Estilos para etiquetas (QLabel) */\n"
-            "QLabel {\n"
-            "    font-size: 14px;\n"
-            "    font-weight: 600;\n"
-            "    color: #E8EAF6;  /* Texto claro en modo oscuro */\n"
-            "}\n"
-            "\n"
-            "/* Estilo para los campos de texto (QLineEdit) */\n"
-            "QLineEdit {\n"
-            "    border: 2px solid #6200EE;\n"
-            "    border-radius: 8px;\n"
-            "    padding: 10px 14px;\n"
-            "    background-color: #333333;  /* Fondo oscuro para el campo de texto */\n"
-            "    font-size: 14px;\n"
-            "    color: #E8EAF6;  /* Texto claro */\n"
-            "}\n"
-            "\n"
-            "QLineEdit:focus {\n"
-            "    border-color: #03DAC5;  /* Resalta el borde cuando est\u00e1 enfocado */\n"
-            "}\n"
-            "\n"
-            "/* Estilo para los botones (QPushButton) */\n"
-            "QPushButton {\n"
-            "    background-color: #6200EE;  /* Fondo del bot\u00f3n */\n"
-            "    color: #FFFFFF;  /* Texto blanco */\n"
-            "    border: none;\n"
-            "    b"
-            "order-radius: 8px;\n"
-            "    padding: 12px 20px;\n"
-            "    font-size: 14px;\n"
-            "    font-weight: bold;\n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    background-color: #3700B3;  /* Fondo m\u00e1s oscuro cuando se pasa el mouse */\n"
-            "}\n"
-            "\n"
-            "QPushButton:pressed {\n"
-            "    background-color: #3100A0;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona */\n"
-            "}\n"
-            ""
-        )
-        self.widget_2 = QWidget(reservas)
-        self.widget_2.setObjectName("widget_2")
-        self.widget_2.setGeometry(QRect(740, 0, 144, 591))
-        self.formLayout_2 = QFormLayout(self.widget_2)
-        self.formLayout_2.setObjectName("formLayout_2")
-        self.verticalSpacer = QSpacerItem(
-            20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
+        self.retranslateUi(Reservas)
 
-        self.formLayout_2.setItem(0, QFormLayout.LabelRole, self.verticalSpacer)
-
-        self.modificar_button = QPushButton(self.widget_2)
-        self.modificar_button.setObjectName("modificar_button")
-        self.modificar_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.modificar_button)
-
-        self.verticalSpacer_2 = QSpacerItem(
-            20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.formLayout_2.setItem(2, QFormLayout.LabelRole, self.verticalSpacer_2)
-
-        self.nueva_button = QPushButton(self.widget_2)
-        self.nueva_button.setObjectName("nueva_button")
-        self.nueva_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.nueva_button)
-
-        self.verticalSpacer_3 = QSpacerItem(
-            20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.formLayout_2.setItem(4, QFormLayout.LabelRole, self.verticalSpacer_3)
-
-        self.eliminar_button = QPushButton(self.widget_2)
-        self.eliminar_button.setObjectName("eliminar_button")
-        self.eliminar_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(5, QFormLayout.LabelRole, self.eliminar_button)
-
-        self.verticalSpacer_4 = QSpacerItem(
-            20, 188, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.formLayout_2.setItem(6, QFormLayout.LabelRole, self.verticalSpacer_4)
-
-        self.salir_button = QPushButton(self.widget_2)
-        self.salir_button.setObjectName("salir_button")
-        self.salir_button.setMinimumSize(QSize(120, 40))
-        self.salir_button.setStyleSheet(
-            "QPushButton {\n"
-            "   background-color: #03DAC5;\n"
-            "    color: #000000;\n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    background-color: #018786;\n"
-            "	background-color: #018786;\n"
-            "}\n"
-            "QPushButton:pressed {\n"
-            "    background-color: #01675B;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona el bot\u00f3n */\n"
-            "}"
-        )
-
-        self.formLayout_2.setWidget(7, QFormLayout.LabelRole, self.salir_button)
-
-        self.tableView_reservas = QTableView(reservas)
-        self.tableView_reservas.setObjectName("tableView_reservas")
-        self.tableView_reservas.setGeometry(QRect(10, 20, 711, 571))
-        self.tableView_reservas.setStyleSheet(
-            "QTableView {\n"
-            "    background-color: #2C2C2C;  /* Fondo oscuro para la tabla */\n"
-            "    border-radius: 8px;  /* Bordes redondeados */\n"
-            "    color: #E8EAF6;  /* Texto claro */\n"
-            "}"
-        )
-
-        self.retranslateUi(reservas)
-
-        QMetaObject.connectSlotsByName(reservas)
-
+        QMetaObject.connectSlotsByName(Reservas)
     # setupUi
 
-    def retranslateUi(self, reservas):
-        reservas.setWindowTitle(
-            QCoreApplication.translate("reservas", "Reservas", None)
-        )
-        self.modificar_button.setText(
-            QCoreApplication.translate("reservas", "Modificar", None)
-        )
-        self.nueva_button.setText(QCoreApplication.translate("reservas", "Nueva", None))
-        self.eliminar_button.setText(
-            QCoreApplication.translate("reservas", "Eliminar", None)
-        )
-        self.salir_button.setText(QCoreApplication.translate("reservas", "SALIR", None))
-
+    def retranslateUi(self, Reservas):
+        Reservas.setWindowTitle(QCoreApplication.translate("Reservas", u"Form", None))
+        self.title_label.setText(QCoreApplication.translate("Reservas", u"RESERVAS", None))
+        self.salones_label.setText(QCoreApplication.translate("Reservas", u"SALONES:", None))
+        self.nuevo_pushButton.setText(QCoreApplication.translate("Reservas", u"Nueva Reserva", None))
+        self.saber_pushButton.setText(QCoreApplication.translate("Reservas", u"Saber mas", None))
     # retranslateUi
+

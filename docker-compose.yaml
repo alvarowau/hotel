@@ -1,30 +1,12 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:latest
-    container_name: mysql-hotel
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: hotel
-      MYSQL_DATABASE: hotel # Opcional, aunque init.sql crea la base de datos
-      MYSQL_USER: hotel
-      MYSQL_PASSWORD: hotel
-      MYSQL_INITDB_SKIP_TZINFO: "yes"
-    command: [
-        '--character-set-server=utf8mb4',
-        '--collation-server=utf8mb4_spanish_ci'
-    ]
+    container_name: mysql2
     ports:
-      - "3306:3306"
+      - "3308:3306"
+    environment:
+      LANG: C.UTF-8
+      MYSQL_ROOT_PASSWORD: root
+
     volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - my_network
-
-volumes:
-  mysql_data:
-
-networks:
-  my_network:
-    driver: bridge
+      - ./database.sql:/docker-entrypoint-initdb.d/setup_database.sql

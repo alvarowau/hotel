@@ -15,141 +15,99 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QHeaderView, QPushButton,
-    QSizePolicy, QSpacerItem, QTableView, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHeaderView, QLabel,
+    QPushButton, QSizePolicy, QSpacerItem, QTableView,
+    QWidget)
 
-class Ui_clientes(object):
-    def setupUi(self, clientes):
-        if not clientes.objectName():
-            clientes.setObjectName(u"clientes")
-        clientes.resize(900, 600)
-        clientes.setMinimumSize(QSize(900, 600))
-        clientes.setMaximumSize(QSize(900, 600))
-        clientes.setStyleSheet(u"/* Estilos generales del formulario */\n"
-"QWidget {\n"
-"    background-color: #121212;  /* Fondo oscuro */\n"
-"    border-radius: 12px;\n"
-"    padding: 24px;\n"
-"    color: #E8EAF6;  /* Texto claro */\n"
-"}\n"
-"\n"
-"/* Estilos para etiquetas (QLabel) */\n"
-"QLabel {\n"
-"    font-size: 14px;\n"
-"    font-weight: 600;\n"
-"    color: #E8EAF6;  /* Texto claro en modo oscuro */\n"
-"}\n"
-"\n"
-"/* Estilo para los campos de texto (QLineEdit) */\n"
-"QLineEdit {\n"
-"    border: 2px solid #6200EE;\n"
-"    border-radius: 8px;\n"
-"    padding: 10px 14px;\n"
-"    background-color: #333333;  /* Fondo oscuro para el campo de texto */\n"
-"    font-size: 14px;\n"
-"    color: #E8EAF6;  /* Texto claro */\n"
-"}\n"
-"\n"
-"QLineEdit:focus {\n"
-"    border-color: #03DAC5;  /* Resalta el borde cuando est\u00e1 enfocado */\n"
-"}\n"
-"\n"
-"/* Estilo para los botones (QPushButton) */\n"
-"QPushButton {\n"
-"    background-color: #6200EE;  /* Fondo del bot\u00f3n */\n"
+class Ui_Clientes(object):
+    def setupUi(self, Clientes):
+        if not Clientes.objectName():
+            Clientes.setObjectName(u"Clientes")
+        Clientes.resize(1080, 640)
+        Clientes.setMinimumSize(QSize(1080, 640))
+        Clientes.setStyleSheet(u"")
+        self.title_label = QLabel(Clientes)
+        self.title_label.setObjectName(u"title_label")
+        self.title_label.setGeometry(QRect(30, 10, 171, 51))
+        font = QFont()
+        font.setBold(True)
+        font.setItalic(True)
+        self.title_label.setFont(font)
+        self.title_label.setStyleSheet(u"QLabel {\n"
 "    color: #FFFFFF;  /* Texto blanco */\n"
-"    border: none;\n"
-"    b"
-                        "order-radius: 8px;\n"
-"    padding: 12px 20px;\n"
-"    font-size: 14px;\n"
-"    font-weight: bold;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: #3700B3;  /* Fondo m\u00e1s oscuro cuando se pasa el mouse */\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: #3100A0;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona */\n"
+"    font-size: 24px;  /* Tama\u00f1o de la fuente m\u00e1s grande */\n"
+"    font-weight: 600;\n"
+"    padding: 10px;  /* Espaciado */\n"
 "}\n"
 "")
-        self.widget_2 = QWidget(clientes)
-        self.widget_2.setObjectName(u"widget_2")
-        self.widget_2.setGeometry(QRect(740, 0, 144, 591))
-        self.formLayout_2 = QFormLayout(self.widget_2)
-        self.formLayout_2.setObjectName(u"formLayout_2")
-        self.verticalSpacer = QSpacerItem(20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.formLayout_2.setItem(0, QFormLayout.LabelRole, self.verticalSpacer)
-
-        self.modificar_button = QPushButton(self.widget_2)
-        self.modificar_button.setObjectName(u"modificar_button")
-        self.modificar_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.modificar_button)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.formLayout_2.setItem(2, QFormLayout.LabelRole, self.verticalSpacer_2)
-
-        self.nueva_button = QPushButton(self.widget_2)
-        self.nueva_button.setObjectName(u"nueva_button")
-        self.nueva_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.nueva_button)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 53, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.formLayout_2.setItem(4, QFormLayout.LabelRole, self.verticalSpacer_3)
-
-        self.eliminar_button = QPushButton(self.widget_2)
-        self.eliminar_button.setObjectName(u"eliminar_button")
-        self.eliminar_button.setMinimumSize(QSize(120, 40))
-
-        self.formLayout_2.setWidget(5, QFormLayout.LabelRole, self.eliminar_button)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 188, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.formLayout_2.setItem(6, QFormLayout.LabelRole, self.verticalSpacer_4)
-
-        self.salir_button = QPushButton(self.widget_2)
-        self.salir_button.setObjectName(u"salir_button")
-        self.salir_button.setMinimumSize(QSize(120, 40))
-        self.salir_button.setStyleSheet(u"QPushButton {\n"
-"   background-color: #03DAC5;\n"
-"    color: #000000;\n"
+        self.clientes_tableView = QTableView(Clientes)
+        self.clientes_tableView.setObjectName(u"clientes_tableView")
+        self.clientes_tableView.setGeometry(QRect(40, 80, 981, 461))
+        self.widget = QWidget(Clientes)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(270, 560, 572, 61))
+        self.gridLayout = QGridLayout(self.widget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.nuevo_pushButton = QPushButton(self.widget)
+        self.nuevo_pushButton.setObjectName(u"nuevo_pushButton")
+        self.nuevo_pushButton.setStyleSheet(u"QPushButton {\n"
+"    background-color: #6200EE; \n"
+"    color: #FFFFFF; \n"
+"    border-radius: 8px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"    padding: 12px 20px;\n"
 "}\n"
 "\n"
+"\n"
 "QPushButton:hover {\n"
-"    background-color: #018786;\n"
-"	background-color: #018786;\n"
+"    background-color: #3700B3;\n"
 "}\n"
+"\n"
 "QPushButton:pressed {\n"
-"    background-color: #01675B;  /* Fondo a\u00fan m\u00e1s oscuro cuando se presiona el bot\u00f3n */\n"
-"}")
+"    background-color: #3100A0;\n"
+"}\n"
+"")
 
-        self.formLayout_2.setWidget(7, QFormLayout.LabelRole, self.salir_button)
+        self.gridLayout.addWidget(self.nuevo_pushButton, 0, 0, 1, 1)
 
-        self.tableView_clientes = QTableView(clientes)
-        self.tableView_clientes.setObjectName(u"tableView_clientes")
-        self.tableView_clientes.setGeometry(QRect(10, 20, 711, 571))
-        self.tableView_clientes.setStyleSheet(u"QTableView {\n"
-"    background-color: #2C2C2C;  /* Fondo oscuro para la tabla */\n"
-"    border-radius: 8px;  /* Bordes redondeados */\n"
-"    color: #E8EAF6;  /* Texto claro */\n"
-"}")
+        self.horizontalSpacer = QSpacerItem(288, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.retranslateUi(clientes)
+        self.gridLayout.addItem(self.horizontalSpacer, 0, 1, 1, 1)
 
-        QMetaObject.connectSlotsByName(clientes)
+        self.saber_pushButton = QPushButton(self.widget)
+        self.saber_pushButton.setObjectName(u"saber_pushButton")
+        self.saber_pushButton.setStyleSheet(u"QPushButton {\n"
+"    background-color: #6200EE; \n"
+"    color: #FFFFFF; \n"
+"    border-radius: 8px;\n"
+"    font-size: 14px;\n"
+"    font-weight: bold;\n"
+"    padding: 12px 20px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #3700B3;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3100A0;\n"
+"}\n"
+"")
+
+        self.gridLayout.addWidget(self.saber_pushButton, 0, 2, 1, 1)
+
+
+        self.retranslateUi(Clientes)
+
+        QMetaObject.connectSlotsByName(Clientes)
     # setupUi
 
-    def retranslateUi(self, clientes):
-        clientes.setWindowTitle(QCoreApplication.translate("clientes", u"Clientes", None))
-        self.modificar_button.setText(QCoreApplication.translate("clientes", u"Modificar", None))
-        self.nueva_button.setText(QCoreApplication.translate("clientes", u"Nueva", None))
-        self.eliminar_button.setText(QCoreApplication.translate("clientes", u"Eliminar", None))
-        self.salir_button.setText(QCoreApplication.translate("clientes", u"SALIR", None))
+    def retranslateUi(self, Clientes):
+        Clientes.setWindowTitle(QCoreApplication.translate("Clientes", u"Form", None))
+        self.title_label.setText(QCoreApplication.translate("Clientes", u"CLIENTES", None))
+        self.nuevo_pushButton.setText(QCoreApplication.translate("Clientes", u"Nueva Reserva", None))
+        self.saber_pushButton.setText(QCoreApplication.translate("Clientes", u"Saber mas", None))
     # retranslateUi
 

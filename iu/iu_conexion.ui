@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>conexion</class>
+ <widget class="QWidget" name="conexion">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>719</width>
+    <height>674</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>719</width>
+    <height>674</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>719</width>
+    <height>674</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>conexion</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background-color: #121212;  
+    border-radius: 12px;
+    padding: 24px;
+}
+
+QLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #E0E0E0;
+    padding: 2px;  
+}
+
+QLineEdit {
+    border: 2px solid #BB86FC;  
+    border-radius: 8px;
+    background-color: #333333;
+    font-size: 12px;
+    color: #E0E0E0;  
+}
+
+QLineEdit:focus {
+    border-color: #03DAC5;
+}
+
+QPushButton {
+    background-color: #6200EE;  
+    color: #FFFFFF;  
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #3700B3;  
+}
+
+QPushButton:pressed {
+    background-color: #3100A0;  
+}
+
+</string>
+  </property>
+  <widget class="QLabel" name="label_img">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>721</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="imagen_bbdd.qrc">:/prefijoNuevo/imagenes/no_conexion.jpg</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_host">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>430</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>HOST:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_host">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>430</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_user">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>490</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>USER:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_user">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>490</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_pass">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>550</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>PASS:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_pass">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>550</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_db">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>460</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_db">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>460</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>DB:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_port">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>520</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_port">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>520</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>PORT:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_probar">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>600</y>
+     <width>211</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PROBAR</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_conectar">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>600</y>
+     <width>211</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CONECTAR</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="imagen_bbdd.qrc"/>
+ </resources>
+ <connections/>
+</ui>

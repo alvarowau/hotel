@@ -9,14 +9,14 @@ class MySQLConnectionManager:
     """
 
     def __init__(
-        self, host: str, user: str, password: str, database: str, port: int = 3306
+        self, host: str, user: str, password: str, database: str, port: str = "3306"
     ):
         self.host = host
         self.user = user
         self.password = password
         self.database = database
         self.port = port
-        self.connection: Optional[Any] = None  # Se permite cualquier tipo de conexión
+        self.connection: Optional[Any] = None
 
     def connect(self) -> Any:
         """

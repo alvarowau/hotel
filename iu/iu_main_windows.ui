@@ -6,146 +6,80 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>915</width>
-    <height>663</height>
+    <width>1100</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>915</width>
-    <height>663</height>
+    <width>1100</width>
+    <height>681</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>915</width>
-    <height>663</height>
+    <width>1100</width>
+    <height>681</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>HOTEL</string>
+   <string>Hotel</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* Estilo para el fondo del QWidget en modo oscuro */
-QWidget {
-    background-color: #121212; /* Fondo oscuro */
-    color: #E8EAF6; /* Texto claro en el fondo oscuro */
+   <string notr="true">QWidget {
+    background-color: #121212; 
+    color: #E8EAF6; 
 }
 
-/* Estilo para la barra de menús */
 QMenuBar {
-    background-color: #333333; /* Fondo oscuro de la barra */
-    color: #E8EAF6; /* Texto claro en el menú */
+    background-color: #333333; 
+    color: #E8EAF6; 
     font-size: 14px;
     font-weight: 600;
 }
 
-/* Elementos de los menús en la barra */
 QMenuBar::item {
     background-color: transparent;
     color: #E8EAF6;
 }
 
-/* Elementos seleccionados en la barra de menús */
 QMenuBar::item:selected {
-    background-color: #6200EE; /* Color de selección */
-    color: #FFFFFF; /* Texto blanco cuando se selecciona */
+    background-color: #6200EE; 
+    color: #FFFFFF; 
 }
 
-/* Estilo para las acciones (QAction) */
 QAction {
     font-size: 14px;
     font-weight: 600;
-    color: #E8EAF6; /* Texto claro */
+    color: #E8EAF6; 
     background-color: transparent;
 }
 
-/* Acción en hover */
 QAction:hover {
-    background-color: #6200EE; /* Fondo al pasar el mouse */
-    color: #FFFFFF; /* Texto blanco */
+    background-color: #6200EE; 
+    color: #FFFFFF; 
 }
 
-/* Acción presionada */
+
 QAction:pressed {
-    background-color: #3700B3; /* Fondo más oscuro al presionar */
-    color: #FFFFFF; /* Texto blanco */
-}
-
-/* Botones (QPushButton) en modo oscuro */
-QPushButton {
-    background-color: #6200EE; /* Fondo de botón */
-    color: #FFFFFF; /* Texto claro */
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 12px 20px;
-}
-
-/* Hover y pressed para botones */
-QPushButton:hover {
-    background-color: #3700B3;
-}
-
-QPushButton:pressed {
-    background-color: #3100A0;
-}
-
-/* Campos de texto (QLineEdit) en modo oscuro */
-QLineEdit {
-    border: 2px solid #6200EE;
-    border-radius: 8px;
-    background-color: #333333; /* Fondo oscuro */
-    color: #E8EAF6; /* Texto claro */
-    font-size: 14px;
-    padding: 10px 14px;
-}
-
-QLineEdit:focus {
-    border-color: #03DAC5; /* Resaltar el borde al enfocar */
-}
-
-/* Otros componentes como labels */
-QLabel {
-    color: #E8EAF6; /* Texto claro */
-    font-size: 14px;
-    font-weight: 600;
-}
-
-</string>
+    background-color: #3700B3; 
+    color: #FFFFFF; 
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="minimumSize">
-    <size>
-     <width>915</width>
-     <height>620</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>915</width>
-     <height>620</height>
-    </size>
-   </property>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>900</width>
-      <height>600</height>
+      <x>10</x>
+      <y>10</y>
+      <width>1081</width>
+      <height>641</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>900</width>
-      <height>600</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>900</width>
-      <height>600</height>
+      <width>1081</width>
+      <height>641</height>
      </size>
     </property>
     <widget class="QWidget" name="page"/>
@@ -157,7 +91,7 @@ QLabel {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>915</width>
+     <width>1100</width>
      <height>25</height>
     </rect>
    </property>
@@ -165,33 +99,33 @@ QLabel {
     <property name="title">
      <string>Aplicaciones</string>
     </property>
+    <addaction name="actionReserva"/>
     <addaction name="actionReservar"/>
-    <addaction name="actionClientes"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
     <property name="title">
      <string>Ayuda</string>
     </property>
-    <addaction name="actionAcerca"/>
+    <addaction name="actionAcerca_de"/>
     <addaction name="actionDocumentaci_n"/>
    </widget>
    <addaction name="menuAplicaciones"/>
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionReserva">
+   <property name="text">
+    <string>Clientes</string>
+   </property>
+  </action>
   <action name="actionReservar">
    <property name="text">
     <string>Reservar</string>
    </property>
   </action>
-  <action name="actionClientes">
+  <action name="actionAcerca_de">
    <property name="text">
-    <string>Clientes</string>
-   </property>
-  </action>
-  <action name="actionAcerca">
-   <property name="text">
-    <string>Acerca</string>
+    <string>Acerca de</string>
    </property>
   </action>
   <action name="actionDocumentaci_n">

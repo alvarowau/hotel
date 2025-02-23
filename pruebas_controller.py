@@ -8,12 +8,14 @@ from controller.main_controller import MainController
 
 def devolver_conection():
     base_datos = MySQLConnectionManager(
-        host="localhost", user="hotel", password="hotel", database="hotel"
+        host="localhost", user="root", password="root", database="hotel", port="3308"
     )
     conexion = base_datos.connect()
     if conexion:
+        print("se conecto")
         return conexion
     else:
+        print("no se conecto")
         return None
 
 
@@ -25,8 +27,7 @@ def main():
         ventana_principal.show()
         sys.exit(app.exec())
     else:
-        print("No se obtuvo conexion")
-
+        print("no tenemos conexion")
 
 if __name__ == "__main__":
     main()

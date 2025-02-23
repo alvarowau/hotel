@@ -1,177 +1,136 @@
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import (
-    QHBoxLayout,
-    QHeaderView,
-    QPushButton,
-    QTableView,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import QHeaderView, QTableView, QWidget
 
-from dao.clientes_dao import ClienteDao
-from dao.reserva_dao import ReservaDao
-from dao.salones_dao import SalonDao
-from dao.tipo_cocina_dao import TipoCocinaDao
-from dao.tipo_reserva_dao import TipoReservasDao
-from util.mostrar_mensajes import confirmar_mensaje, mostrar_error
+from iu.iu_reservas import Ui_Reservas
+from iu.estilo_tabla import estilo_tabla
 
 
-class ReservasControler(QWidget):
-    """Controlador de la vista de reservas."""
+class ReservasController(QWidget):
+    """Controlador para la vista de reservas."""
 
     def __init__(self, conexion):
         super().__init__()
         self.conexion = conexion
-        if self.conexion:
-            self.iniciar_daos()
-            self.traer_listas()
-            self.iniciar_tabla()
-            self.recargar_tabla()
-            self.iniciar_interface()
+        self.ui = Ui_Reservas()
+        self.ui.setupUi(self)
+        self.model = QStandardItemModel()
+        self.reserva_seleccionada = None
+        self.init_ui()
+
+    def init_ui(self):
+        """Inicializa la interfaz de usuario y conecta los eventos"""
+        self.ui.nuevo_pushButton.clicked.connect(self.nueva_reserva)
+        self.ui.saber_pushButton.clicked.connect(self.saber_mas)
+        self.iniciar_tabla()
+
+    def nueva_reserva(self):
+        """Lógica para agregar una nueva reserva."""
+        print("Nueva reserva")  # Aquí iría la lógica real para agregar una reserva
+        # Puedes abrir un modal para crear una nueva reserva como en el otro ejemplo
+        # self.open_modal(True)
+
+    def saber_mas(self):
+        """Lógica para mostrar más información sobre la reserva seleccionada."""
+        if self.reserva_seleccionada:
+            print(f"Más información de la reserva: {self.reserva_seleccionada}")
         else:
-            print("No hay conexion")
-
-    def iniciar_daos(self):
-        self.reserva_dao = ReservaDao(self.conexion)
-        self.salon_dao = SalonDao(self.conexion)
-        self.tipo_cocina_dao = TipoCocinaDao(self.conexion)
-        self.tipo_reserva_dao = TipoReservasDao(self.conexion)
-        self.cliente_dao = ClienteDao(self.conexion)
-
-    def traer_listas(self):
-        self.lista_salones = self.salon_dao.find_all()
-        self.lista_tipo_reservas = self.tipo_reserva_dao.find_all()
-        self.lista_tipo_cocina = self.tipo_cocina_dao.find_all()
-
-    def nombre_salon_by_id(self, id_salon):
-        if self.lista_salones:
-            for salon in self.lista_salones:
-                if salon.salon_id == id_salon:
-                    return salon.nombre
-
-    def nombre_tipo_cocina_by_id(self, id_tipo_cocina):
-        if self.lista_tipo_cocina:
-            for cocina in self.lista_tipo_cocina:
-                if cocina.tipo_cocina_id == id_tipo_cocina:
-                    return cocina.nombre
-
-    def nombre_tipo_reserva_by_id(self, tipo_reserva_id):
-        if self.lista_tipo_reservas:
-            for tipo_reserva in self.lista_tipo_reservas:
-                if tipo_reserva.tipo_reserva_id == tipo_reserva_id:
-                    return tipo_reserva.nombre
-
-    def traer_reservas(self):
-        self.lista_reservas = self.reserva_dao.find_all()
-
-    def iniciar_interface(self):
-        self.nueva_button = QPushButton("Nueva")
-        self.modificar_button = QPushButton("Modificar")
-        self.eliminar_button = QPushButton("Eliminar")
-        self.salir_button = QPushButton("Salir")
-
-        self.nueva_button.clicked.connect(self.agregar_reserva)
-        self.modificar_button.clicked.connect(self.modificar_reserva)
-        self.eliminar_button.clicked.connect(self.eliminar_reserva)
-        self.salir_button.clicked.connect(self.salir)
-
-        button_layout = QHBoxLayout()
-        button_layout.addWidget(self.nueva_button)
-        button_layout.addWidget(self.modificar_button)
-        button_layout.addWidget(self.eliminar_button)
-        button_layout.addWidget(self.salir_button)
-
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.tableView)
-        layout.addLayout(button_layout)
-        self.setLayout(layout)
+            print("Selecciona una reserva", "warning")
 
     def iniciar_tabla(self):
-        self.tableView = QTableView(self)
-        self.model = QStandardItemModel()
-        self.tableView.setModel(self.model)
+        """Configura la tabla inicialmente sin datos"""
+        self.tableView = self.ui.reservas_tableView
 
+        # Definir los encabezados de la tabla
         headers = [
+            "ID",
             "Tipo reserva",
             "Salón",
             "Tipo cocina",
             "Cliente",
             "Fecha",
         ]
+
+        # Asignar los encabezados al modelo de la tabla
         self.model.setHorizontalHeaderLabels(headers)
+
+        # Configurar la vista de la tabla
+        self.tableView.setModel(self.model)
+
+        # Cambiar el modo de redimensionamiento de las columnas
         header = self.tableView.horizontalHeader()
-        for i in range(self.model.columnCount()):
-            header.setSectionResizeMode(i, QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
+        # Eliminar los números de las filas (índices de las filas)
+        self.tableView.verticalHeader().setVisible(False)
+
+        # Aplicar estilo Material Design oscuro a la tabla
+        self.tableView.setStyleSheet(estilo_tabla)
+
+        # Llamar a recargar_tabla para insertar datos harcodeados
+        self.recargar_tabla()
 
     def recargar_tabla(self):
-        """Recarga la tabla con los datos actualizados."""
+        """Recarga la tabla con datos harcodeados para hacer pruebas."""
+        # Limpiar la tabla antes de agregar nuevos datos
         self.model.removeRows(0, self.model.rowCount())
-        self.traer_reservas()
 
-        if self.lista_reservas:
-            for reserva in self.lista_reservas:
-                fila = [
-                    str(self.nombre_tipo_reserva_by_id(reserva.tipo_reserva_id)),
-                    str(self.nombre_salon_by_id(reserva.salon_id)),
-                    str(self.nombre_tipo_cocina_by_id(reserva.tipo_cocina_id)),
-                    str(self.cliente_dao.find_nombre_by_id(reserva.id_cliente)),
-                    str(reserva.fecha),
-                ]
+        # Datos harcodeados para insertar en la tabla
+        reservas = [
+            {
+                "id_reserva": 1,
+                "tipo_reserva": "Individual",
+                "salon": "A",
+                "tipo_cocina": "Buffet",
+                "cliente": "Juan Pérez",
+                "fecha": "2025-03-01",
+            },
+            {
+                "id_reserva": 2,
+                "tipo_reserva": "Grupo",
+                "salon": "B",
+                "tipo_cocina": "Menú",
+                "cliente": "Ana Gómez",
+                "fecha": "2025-03-02",
+            },
+            {
+                "id_reserva": 3,
+                "tipo_reserva": "VIP",
+                "salon": "C",
+                "tipo_cocina": "A la carta",
+                "cliente": "Carlos López",
+                "fecha": "2025-03-05",
+            },
+            {
+                "id_reserva": 4,
+                "tipo_reserva": "Individual",
+                "salon": "A",
+                "tipo_cocina": "Buffet",
+                "cliente": "Maria Martínez",
+                "fecha": "2025-03-07",
+            },
+            {
+                "id_reserva": 5,
+                "tipo_reserva": "Grupo",
+                "salon": "B",
+                "tipo_cocina": "Menú",
+                "cliente": "Pedro Rodríguez",
+                "fecha": "2025-03-10",
+            },
+        ]
 
-                elementos = [QStandardItem(dato) for dato in fila]
-                id_reserva_item = QStandardItem(str(reserva.reserva_id))
-                id_reserva_item.setEditable(False)
-                id_reserva_item.setData(True, Qt.ItemDataRole.UserRole)
+        # Insertar los datos en el modelo
+        for reserva in reservas:
+            row = []
+            # Insertar los datos en la fila de la tabla
+            row.append(QStandardItem(str(reserva["id_reserva"])))  # ID
+            row.append(QStandardItem(reserva["tipo_reserva"]))  # Tipo reserva
+            row.append(QStandardItem(reserva["salon"]))  # Salón
+            row.append(QStandardItem(reserva["tipo_cocina"]))  # Tipo cocina
+            row.append(QStandardItem(reserva["cliente"]))  # Cliente
+            row.append(QStandardItem(reserva["fecha"]))  # Fecha
 
-                self.model.appendRow(elementos)
-                if not hasattr(self, "id_items"):
-                    self.id_items = {}
-                self.id_items[self.model.rowCount() - 1] = id_reserva_item
+            # Agregar la fila al modelo
+            self.model.appendRow(row)
 
-    def agregar_reserva(self):
-        print("Agregar reserva")
-
-    def obtener_id_desde_index(self, index):
-        row = index.row()
-        id_reserva_item = self.id_items[row]
-        return id_reserva_item.text()
-
-    def modificar_reserva(self):
-        try:
-            index = self.tableView.selectionModel().currentIndex()
-            if index.isValid():
-                # print(f"ID reserva: {self.obtener_id_desde_index(index)}")
-                id_reserva = self.obtener_id_desde_index(index)
-                print(f"el id de la reserva {id_reserva}")
-                resultado = self.reserva_dao.traer_details_delete(id_reserva)
-                respuesta_ventana = confirmar_mensaje(
-                    f"Quiere modificar la reserva {resultado}"
-                )
-                if respuesta_ventana:
-                    print(f"Quiere modificar la reserva {id_reserva}")
-            else:
-                mostrar_error("No se ha seleccionado ninguna reserva")
-        except Exception:
-            mostrar_error("Ocurrió un error al intentar modificar reserva")
-
-    def eliminar_reserva(self):
-        try:
-            index = self.tableView.selectionModel().currentIndex()
-            if index.isValid():
-                # print(f"ID reserva: {self.obtener_id_desde_index(index)}")
-                id_reserva = self.obtener_id_desde_index(index)
-                print(f"el id de la reserva {id_reserva}")
-                resultado = self.reserva_dao.traer_details_delete(id_reserva)
-                respuesta_ventana = confirmar_mensaje(
-                    f"Quiere eliminar la reserva {resultado}"
-                )
-                if respuesta_ventana:
-                    print(f"Quiere eliminar la reserva {id_reserva}")
-            else:
-                mostrar_error("No se ha seleccionado ninguna reserva")
-        except Exception:
-            mostrar_error("Ocurrió un error al intentar modificar reserva")
-
-    def salir(self):
-        print("salir")
+        # Ocultar la columna de ID (índice 0)
+        self.tableView.setColumnHidden(0, True)
