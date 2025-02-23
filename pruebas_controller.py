@@ -12,10 +12,8 @@ def devolver_conection():
     )
     conexion = base_datos.connect()
     if conexion:
-        print("se conecto")
         return conexion
     else:
-        print("no se conecto")
         return None
 
 

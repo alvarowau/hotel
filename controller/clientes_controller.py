@@ -4,6 +4,8 @@ from PySide6.QtWidgets import QHeaderView, QTableView, QWidget, QMessageBox
 from iu.iu_clientes import Ui_Clientes
 from iu.estilo_tabla import estilo_tabla
 from dao.clientes_dao import ClienteDao
+from util.mostrar_mensajes import confirmar_mensaje
+from controller.controller_clientes_edit import ControladorClientesEdit
 
 
 class ClientesController(QWidget):
@@ -28,13 +30,13 @@ class ClientesController(QWidget):
 
     def init_ui(self):
         """Inicializa la interfaz de usuario y conecta los eventos"""
+        self.ui.nuevo_pushButton.setText("Nuevo cliente")
         self.ui.nuevo_pushButton.clicked.connect(self.nuevo_cliente)
         self.ui.saber_pushButton.clicked.connect(self.saber_mas)
         self.iniciar_tabla()
 
     def nuevo_cliente(self):
-        """Lógica para agregar un nuevo cliente."""
-        print("Nuevo cliente")  # Aquí iría la lógica real para agregar un cliente
+        self.abrir_cliente_modal()
 
     def saber_mas(self):
         """Lógica para mostrar más información sobre el cliente seleccionado."""
@@ -43,10 +45,16 @@ class ClientesController(QWidget):
         if index:
             # El índice seleccionado siempre estará en la primera columna (ID)
             id_cliente = self.model.item(index[0].row(), 0).text()
-            print(f"el id del cliente es {id_cliente}")
+            self.abrir_cliente_modal(id_cliente)
 
         else:
             print("Selecciona un cliente para ver más información.")
+
+    def abrir_cliente_modal(self, id_cliente=None):
+        """Abre la ventana de edición de cliente de manera modal."""
+        ventana_edicion = ControladorClientesEdit(self.conexion, id_cliente)
+        ventana_edicion.exec_()
+        self.recargar_tabla()
 
     def iniciar_tabla(self):
         """Configura la tabla inicialmente sin datos"""
@@ -92,7 +100,7 @@ class ClientesController(QWidget):
             for cliente in clientes:
                 row = []
                 # Combinar nombre y apellido en una sola columna
-                #nombre_completo = f"{cliente.nombre} {cliente.apellido}"  #
+                # nombre_completo = f"{cliente.nombre} {cliente.apellido}"  #
 
                 # Insertar los datos en la fila de la tabla
                 row.append(QStandardItem(str(cliente.Id)))  # ID

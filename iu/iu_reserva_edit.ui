@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>reserva_edit</class>
+ <widget class="QWidget" name="reserva_edit">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>541</width>
+    <height>729</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>541</width>
+    <height>729</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>541</width>
+    <height>729</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background-color: #121212;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #E0E0E0;
+}
+
+QLineEdit {
+    border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+    selection-background-color: #64B5F6;
+}
+QLineEdit:focus {
+    border: 2px solid #BB86FC;
+}
+
+
+QDateEdit {
+    border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+}
+QDateEdit::drop-down {
+    border: none;
+}
+
+QPushButton {
+    background-color: #BB86FC;
+    color: black;
+    border-radius: 4px;
+    padding: 8px;
+}
+QPushButton:hover {
+    background-color: #9B5DE5;
+}
+QPushButton:pressed {
+    background-color: #7A3E9D;
+}
+
+QComboBox {
+    border: 1px solid #424242;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+}
+QComboBox::drop-down {
+    border: none;
+}
+
+QCheckBox {
+    spacing: 5px;
+}
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+}
+QCheckBox::indicator:unchecked {
+    border: 1px solid #757575;
+    background-color: #1E1E1E;
+}
+QCheckBox::indicator:checked {
+    background-color: #BB86FC;
+    border: 1px solid #BB86FC;
+}
+
+QLabel {
+    font-weight: bold;
+    color: #E0E0E0;
+}</string>
+  </property>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>521</width>
+     <height>661</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QWidget" name="widget_principal" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="nombre_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Nombre del/la organizador/a</string>
+         </property>
+         <property name="text">
+          <string>Nombre</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="nombre_lineEdit">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Nombre del/la cliente/a</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="fecha_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Fecha del evento</string>
+         </property>
+         <property name="text">
+          <string>Fecha </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="fecha_dateEdit">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Fecha de nacimiento</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="telefono_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Teléfono del/la organizador/a</string>
+         </property>
+         <property name="text">
+          <string>Telefono</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="telefono_lineEdit">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Telefono del/la cliente/a</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="tipo_reserva_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Teléfono del/la organizador/a</string>
+         </property>
+         <property name="text">
+          <string>Tipo reserva</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="tipo_reserva_comboBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="tipo_cocina_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Teléfono del/la organizador/a</string>
+         </property>
+         <property name="text">
+          <string>Tipo cocina</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="tipo_cocina_comboBox"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="asistentes_label">
+         <property name="font">
+          <font>
+           <family>Roboto</family>
+           <pointsize>-1</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Teléfono del/la organizador/a</string>
+         </property>
+         <property name="text">
+          <string>Asistentes</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="asistentes_spinBox"/>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>482</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QWidget" name="widget_botones" native="true">
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="boton_izquierdo_pushButton">
+         <property name="text">
+          <string>boton2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="boton_derecho_pushButton">
+         <property name="text">
+          <string>boton2</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QWidget" name="widget_secundario" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QWidget" name="widget_jornadas" native="true">
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="jornadas_spinBox"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="jornadas_label">
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="toolTip">
+             <string>Fecha del evento</string>
+            </property>
+            <property name="text">
+             <string>Jornadas:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_habitaciones" native="true">
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <widget class="QLabel" name="habitaciones_label">
+            <property name="font">
+             <font>
+              <family>Roboto</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>¿Habitaciones?</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="habitaciones_checkBox">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>521</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    font-size: 24px;
+    font-weight: bold;
+    color: #BB86FC;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    qproperty-alignment: AlignCenter;
+}</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
