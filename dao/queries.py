@@ -40,10 +40,13 @@ Returns:
     bool: True si la operación fue exitosa, False en caso contrario.
 """
 
+cliente_dao_exit_num_identificacion = "SELECT COUNT(*) FROM clientes WHERE Num_Identificacion = %s"
+
+
 cliente_dao_update = """
 UPDATE clientes
 SET Nombre = %s, Apellidos = %s, Fec_Nac = %s, Pais = %s,
-    Telefono = %s, email = %s, Sexo = %s, Menores = %s, activo = %s
+    Telefono = %s, email = %s, Sexo = %s, Menores = %s, Num_Identificacion = %s
 WHERE Id = %s;
 """
 """

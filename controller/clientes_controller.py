@@ -1,21 +1,25 @@
 from PySide6.QtGui import QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QHeaderView, QTableView, QWidget, QMessageBox
+from PySide6.QtWidgets import QHeaderView, QWidget
 
-from iu.iu_clientes import Ui_Clientes
-from iu.estilo_tabla import estilo_tabla
-from dao.clientes_dao import ClienteDao
-from util.mostrar_mensajes import confirmar_mensaje
 from controller.controller_clientes_edit import ControladorClientesEdit
+from dao.clientes_dao import ClienteDao
+from iu.estilo_tabla import estilo_tabla
+from iu.iu_clientes import Ui_Clientes
+from util.mostrar_mensajes import mostrar_informacion
 
 
 class ClientesController(QWidget):
     """Controlador para la vista de clientes."""
 
     def __init__(self, conexion):
+        """Inicializa el controlador de clientes.
+
+        Args:
+            conexion: Objeto de conexión a la base de datos.
+        """
         super().__init__()
         if conexion:
             self.ui = Ui_Clientes()
-
             self.conexion = conexion
             self.iniciar_daos()
             self.ui.setupUi(self)
@@ -26,94 +30,76 @@ class ClientesController(QWidget):
             print("no hay conexion")
 
     def iniciar_daos(self):
+        """Inicializa los objetos de acceso a datos (DAOs)."""
         self.cliente_dao = ClienteDao(self.conexion)
 
     def init_ui(self):
-        """Inicializa la interfaz de usuario y conecta los eventos"""
+        """Inicializa la interfaz de usuario y conecta los eventos."""
         self.ui.nuevo_pushButton.setText("Nuevo cliente")
         self.ui.nuevo_pushButton.clicked.connect(self.nuevo_cliente)
         self.ui.saber_pushButton.clicked.connect(self.saber_mas)
         self.iniciar_tabla()
 
     def nuevo_cliente(self):
+        """Abre el modal para crear un nuevo cliente."""
         self.abrir_cliente_modal()
 
     def saber_mas(self):
-        """Lógica para mostrar más información sobre el cliente seleccionado."""
-        # Obtener el índice de la fila seleccionada
+        """Muestra información detallada del cliente seleccionado."""
         index = self.ui.clientes_tableView.selectedIndexes()
         if index:
-            # El índice seleccionado siempre estará en la primera columna (ID)
             id_cliente = self.model.item(index[0].row(), 0).text()
             self.abrir_cliente_modal(id_cliente)
-
         else:
-            print("Selecciona un cliente para ver más información.")
+            mostrar_informacion("Selecciona un cliente para ver más información.")
 
     def abrir_cliente_modal(self, id_cliente=None):
-        """Abre la ventana de edición de cliente de manera modal."""
+        """Abre la ventana modal para edición/creación de cliente.
+
+        Args:
+            id_cliente (str, optional): ID del cliente para editar. Defaults to None (creación nuevo cliente).
+        """
         ventana_edicion = ControladorClientesEdit(self.conexion, id_cliente)
         ventana_edicion.exec_()
         self.recargar_tabla()
 
     def iniciar_tabla(self):
-        """Configura la tabla inicialmente sin datos"""
+        """Configura e inicializa la tabla de clientes."""
         self.tableView = self.ui.clientes_tableView
         headers = [
             "ID",
-            "Nombre Completo",  # Cambiar encabezado a "Nombre Completo"
+            "Nombre Completo",
             "Fecha Nacimiento",
             "País",
             "Teléfono",
             "Email",
         ]
 
-        # Asignar los encabezados al modelo de la tabla
         self.model.setHorizontalHeaderLabels(headers)
-
-        # Configurar la vista de la tabla
         self.tableView.setModel(self.model)
 
-        # Cambiar el modo de redimensionamiento de las columnas
         header = self.tableView.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
-        # Eliminar los números de las filas (índices de las filas)
         self.tableView.verticalHeader().setVisible(False)
-
-        # Aplicar estilo Material Design oscuro a la tabla
         self.tableView.setStyleSheet(estilo_tabla)
 
-        # Llamar a recargar_tabla para insertar datos harcodeados
         self.recargar_tabla()
 
     def recargar_tabla(self):
-        """Recarga la tabla con datos harcodeados para hacer pruebas."""
-        # Limpiar la tabla antes de agregar nuevos datos
+        """Recarga los datos de la tabla de clientes desde la base de datos."""
         self.model.removeRows(0, self.model.rowCount())
-
-        # Datos harcodeados para insertar en la tabla
         clientes = self.cliente_dao.find_all_activos()
 
         if clientes:
-            # Insertar los datos en el modelo
             for cliente in clientes:
                 row = []
-                # Combinar nombre y apellido en una sola columna
-                # nombre_completo = f"{cliente.nombre} {cliente.apellido}"  #
-
-                # Insertar los datos en la fila de la tabla
-                row.append(QStandardItem(str(cliente.Id)))  # ID
-                row.append(
-                    QStandardItem(str(f"{cliente.Nombre} {cliente.Apellidos}"))
-                )  # Nombre Completo
-                row.append(QStandardItem(str(cliente.Fec_Nac)))  # Fecha Nacimiento
-                row.append(QStandardItem(str(cliente.Pais)))  # País
-                row.append(QStandardItem(str(cliente.Telefono)))  # Teléfono
-                row.append(QStandardItem(str(cliente.email)))  # Email
-
-                # Agregar la fila al modelo
+                row.append(QStandardItem(str(cliente.Id)))
+                row.append(QStandardItem(str(f"{cliente.Nombre} {cliente.Apellidos}")))
+                row.append(QStandardItem(str(cliente.Fec_Nac)))
+                row.append(QStandardItem(str(cliente.Pais)))
+                row.append(QStandardItem(str(cliente.Telefono)))
+                row.append(QStandardItem(str(cliente.email)))
                 self.model.appendRow(row)
 
-            # Ocultar la columna de ID (índice 0)
             self.tableView.setColumnHidden(0, True)

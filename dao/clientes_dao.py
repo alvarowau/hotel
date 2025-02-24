@@ -1,3 +1,4 @@
+from xmlrpc.client import Boolean
 from dao.queries import (
     cliente_dao_create,
     cliente_dao_desctivate,
@@ -5,6 +6,7 @@ from dao.queries import (
     cliente_dao_find_by_id,
     cliente_dao_find_nombre_by_id,
     cliente_dao_update,
+    cliente_dao_exit_num_identificacion,
 )
 from model.cliente import Cliente
 
@@ -20,11 +22,13 @@ class ClienteDao:
         conexion: Objeto de conexión a la base de datos.
 
     Métodos:
+        find_nombre_by_id(id_cliente): Obtiene el nombre completo de un cliente por su ID.
         find_all_activos(): Obtiene todos los clientes activos.
         find_all_by_id(id): Busca un cliente por su ID.
-        update(id, nombre, apellidos, fec_nac, pais, telefono, email, sexo, menores, activo): Actualiza un cliente.
+        update(id, nombre, apellidos, fec_nac, pais, telefono, email, sexo, menores, numero_identificacion): Actualiza un cliente.
         deactivate(id): Desactiva un cliente por su ID.
         create(cliente): Crea un nuevo cliente.
+        existe_numero_identificacion(numero_identificacion): Verifica si un número de identificación ya existe.
         convertir_cliente(cliente): Convierte un diccionario en un objeto Cliente.
     """
 
@@ -38,6 +42,16 @@ class ClienteDao:
         self.conexion = conexion
 
     def find_nombre_by_id(self, id_cliente):
+        """
+        Obtiene el nombre completo de un cliente por su ID.
+
+        Args:
+            id_cliente (int): El ID del cliente.
+
+        Returns:
+            str: El nombre completo del cliente en formato "Nombre Apellidos".
+            None: Si no se encuentra el cliente o no hay conexión a la base de datos.
+        """
         if self.conexion:
             cursor = self.conexion.cursor()
             cursor.execute(cliente_dao_find_nombre_by_id, (id_cliente,))
@@ -101,7 +115,7 @@ class ClienteDao:
         email: str,
         sexo: str,
         menores: int,
-        activo: bool,
+        numero_identificacion: bool,
     ) -> bool:
         """
         Actualiza los datos de un cliente en la base de datos.
@@ -116,7 +130,7 @@ class ClienteDao:
             email (str): El nuevo email del cliente.
             sexo (str): El nuevo sexo del cliente.
             menores (int): El nuevo número de menores a cargo del cliente.
-            activo (bool): El nuevo estado de activación del cliente.
+            numero_identificacion (bool): El número de identificación del cliente.
 
         Returns:
             bool: True si la actualización fue exitosa, False en caso contrario.
@@ -135,7 +149,7 @@ class ClienteDao:
                         email,
                         sexo,
                         menores,
-                        activo,
+                        numero_identificacion,
                         id,
                     ),
                 )
@@ -195,6 +209,28 @@ class ClienteDao:
                 )
                 self.conexion.commit()
                 return cursor.rowcount > 0  # True si se insertó correctamente
+            finally:
+                cursor.close()
+        return False
+
+    def existe_numero_identificacion(self, numero_identificacion) -> bool:
+        """
+        Verifica si un número de identificación ya existe en la base de datos.
+
+        Args:
+            numero_identificacion (str): El número de identificación a verificar.
+
+        Returns:
+            bool: True si el número de identificación ya existe, False en caso contrario.
+        """
+        if self.conexion:
+            cursor = self.conexion.cursor()
+            try:
+                cursor.execute(
+                    cliente_dao_exit_num_identificacion, (numero_identificacion,)
+                )
+                result = cursor.fetchone()  # Recupera el primer valor del resultado
+                return result[0] > 0  # Si el conteo es mayor que 0, existe
             finally:
                 cursor.close()
         return False
