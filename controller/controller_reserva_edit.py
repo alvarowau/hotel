@@ -1,12 +1,22 @@
-from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QDate
+from PySide6.QtWidgets import QDialog
+
 from dao.clientes_dao import ClienteDao
 from dao.reserva_dao import ReservaDao
 from dao.salones_dao import SalonDao
 from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
 from iu.iu_reserva_edit import Ui_reserva_edit
+from model.reserva import Reserva
 from util.mostrar_mensajes import mostrar_error
+
+# ! modificar el limite de la fecha
+
+
+# ? ¿Está correcto este enfoque? Necesitamos revisar si es la mejor solución.
+# // Esto ya no es relevante y se eliminará en la siguiente versión.
+# TODO: Implementar la validación de entrada más tarde.
+# * Nota: Este es un comportamiento esperado en la mayoría de los casos.
 
 
 class ControladorReservas(QDialog):
@@ -84,28 +94,58 @@ class ControladorReservas(QDialog):
             mostrar_error("Ha ocurrido un error")
             self._salir_pantalla()
 
-    def _guardar_reserva_nueva(self):
-        """Guarda una nueva reserva en la base de datos."""
+    def _recoger_datos(self):
+        # Recolectar los datos del formulario
         cliente_id = self.ui.cliente_comboBox.currentData()
         salon_id = self.ui.salon_comboBox.currentData()
         tipo_reserva_id = self.ui.tipo_reserva_comboBox.currentData()
         tipo_cocina_id = self.ui.tipo_cocina_comboBox.currentData()
         asistentes = self.ui.asistentes_spinBox.value()
-        jornadas = self.ui.jornadas_spinBox.value()
-        habitaciones = self.ui.habitaciones_checkBox.isChecked()
-        fecha = self.ui.fecha_dateEdit.date().toString(
-            "yyyy-MM-dd"
-        )  # Formatea la fecha
+        fecha = self.ui.fecha_dateEdit.date().toString("yyyy-MM-dd")
 
-        print(f"Cliente ID: {cliente_id}")
-        print(f"Salón ID: {salon_id}")
-        print(f"Tipo Reserva ID: {tipo_reserva_id}")
-        print(f"Tipo Cocina ID: {tipo_cocina_id}")
-        print(f"Asistentes: {asistentes}")
-        print(f"Jornadas: {jornadas}")
-        print(f"Habitaciones: {'Sí' if habitaciones else 'No'}")
-        print(f"Fecha: {fecha}")
-        print("Guardar reserva nueva")
+        # Crear un diccionario con los datos
+        datos = {
+            "id_cliente": cliente_id,
+            "salon_id": salon_id,
+            "tipo_reserva_id": tipo_reserva_id,
+            "tipo_cocina_id": tipo_cocina_id,
+            "ocupacion": asistentes,
+            "fecha": fecha,
+        }
+
+        # Si el tipo de reserva es 3, agregar más datos
+        if tipo_reserva_id == 3:
+            jornadas = self.ui.jornadas_spinBox.value()
+            habitaciones = self.ui.habitaciones_checkBox.isChecked()
+
+            # Agregar estos datos al diccionario
+            datos["jornadas"] = jornadas
+            datos["habitaciones"] = habitaciones
+        else:
+            datos["jornadas"] = 0
+            datos["habitaciones"] = False
+        # Retornar el diccionario con todos los datos
+        return datos
+
+    # ! terminar este metodo para continuar
+    def _guardar_reserva_nueva(self):
+        """Guarda una nueva reserva en la base de datos."""
+        datos = self._recoger_datos()
+        if self.reserva_dao.is_fecha_dispon(datos["salon_id"], datos["fecha"]):
+            """reserva = Reserva(
+                tipo_reserva_id=datos["tipo_reserva_id"],
+                salon_id=datos["salon_id"],
+                tipo_cocina_id=datos["tipo_cocina_id"],
+                id_cliente=datos["id_cliente"],
+                fecha=datos["fecha"],
+                ocupacion=datos["ocupacion"],
+                jornadas=datos["jornadas"],
+                habitaciones=datos["habitaciones"],
+            )"""
+            reserva_dos = Reserva.from_dict(datos)
+            print(reserva_dos)
+        else:
+            mostrar_error("La fecha no esta disponible para este salon")
 
     def _iniciar_daos(self):
         """Inicializa los DAOs necesarios."""
@@ -218,6 +258,6 @@ class ControladorReservas(QDialog):
         """
         fecha = fecha or QDate.currentDate()
         self.ui.fecha_dateEdit.setDate(fecha)
-        self.ui.fecha_dateEdit.setMinimumDate(fecha)
+        # self.ui.fecha_dateEdit.setMinimumDate(fecha)
         self.ui.fecha_dateEdit.setCalendarPopup(True)
         self.ui.fecha_dateEdit.setDisplayFormat("yyyy-MM-dd")

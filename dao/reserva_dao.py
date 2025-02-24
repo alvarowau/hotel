@@ -189,11 +189,11 @@ class ReservaDao:
                 cursor.close()
         return None
 
-    def is_fecha_dispon(self, tipo_reserva_id, fecha):
+    def is_fecha_dispon(self, salon_id, fecha):
         if self.conexion:
             cursor =self.conexion.cursor()
             try:
-                cursor.execute(reserva_dao_is_date_dispon, (tipo_reserva_id, fecha))
+                cursor.execute(reserva_dao_is_date_dispon, (salon_id, fecha))
                 result = cursor.fetchone()
                 return not result[0] > 0
             finally:

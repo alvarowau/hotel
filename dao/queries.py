@@ -195,6 +195,6 @@ WHERE r.reserva_id = %s;
 reserva_dao_is_date_dispon = """
 SELECT COUNT(*)
 FROM reservas
-WHERE tipo_reserva_id = %s AND fecha = %s;
+WHERE salon_id = %s AND fecha = %s;
 
 """
