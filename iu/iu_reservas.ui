@@ -99,9 +99,9 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>270</x>
      <y>550</y>
-     <width>501</width>
+     <width>572</width>
      <height>61</height>
     </rect>
    </property>
@@ -140,7 +140,7 @@ QPushButton:pressed {
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>217</width>
+        <width>288</width>
         <height>20</height>
        </size>
       </property>

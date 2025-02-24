@@ -4,6 +4,8 @@ from dao.queries import (
     reserva_dao_update,
     reservas_dao_find_all,
     reservas_dao_find_byId,
+    reserva_dao_find_all_by_id_salones,
+    reserva_dao_is_date_dispon
 )
 from model.reserva import Reserva
 
@@ -165,3 +167,35 @@ class ReservaDao:
             finally:
                 cursor.close()
         return None
+
+    def find_all_by_salon_id(self, id_salon):
+        """
+        Obtiene todas las reservas de la base de datos.
+
+        Returns:
+            list[Reserva]: Una lista de objetos Reserva que representan todas las reservas.
+            None: Si no hay conexión a la base de datos.
+        """
+        if self.conexion:
+            cursor = self.conexion.cursor(dictionary=True)
+            try:
+                cursor.execute(reserva_dao_find_all_by_id_salones,(id_salon,))
+                result = cursor.fetchall()
+                lista_reserva = list()
+                for res in result:
+                    lista_reserva.append(self.convertir_reserva(res))
+                return lista_reserva
+            finally:
+                cursor.close()
+        return None
+
+    def is_fecha_dispon(self, tipo_reserva_id, fecha):
+        if self.conexion:
+            cursor =self.conexion.cursor()
+            try:
+                cursor.execute(reserva_dao_is_date_dispon, (tipo_reserva_id, fecha))
+                result = cursor.fetchone()
+                return not result[0] > 0
+            finally:
+                cursor.close()
+        return False

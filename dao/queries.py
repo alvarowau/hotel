@@ -159,6 +159,8 @@ Returns:
     dict: Un diccionario con los datos de la reserva encontrada.
 """
 
+reserva_dao_find_all_by_id_salones = "SELECT * FROM reservas WHERE salon_id = %s"
+
 reserva_dao_update = """
 UPDATE reservas
 SET tipo_reserva_id = %s, salon_id = %s, tipo_cocina_id = %s, id_cliente = %s,
@@ -187,5 +189,12 @@ SELECT c.Nombre, c.Apellidos, r.fecha
 FROM reservas r
 JOIN clientes c ON r.id_cliente = c.id
 WHERE r.reserva_id = %s;
+
+"""
+
+reserva_dao_is_date_dispon = """
+SELECT COUNT(*)
+FROM reservas
+WHERE tipo_reserva_id = %s AND fecha = %s;
 
 """
