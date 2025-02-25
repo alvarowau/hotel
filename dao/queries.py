@@ -1,5 +1,5 @@
 
-user_dao_login = "SELECT COUNT(*) FROM users WHERE username = %s AND password = %s"
+user_dao_login = "SELECT COUNT(*) FROM users WHERE username = %s AND pass = %s"
 
 tipo_reserva_dao_find_all = "SELECT * FROM tipos_reservas"
 

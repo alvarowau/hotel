@@ -6,10 +6,10 @@ CREATE DATABASE IF NOT EXISTS hotel
 USE hotel;
 
 -- Crear tablas con utf8mb4
-CREATE TABLE usuarios (
+CREATE TABLE users (
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    contrasenia VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+    username VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    pass VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 );
 
 CREATE TABLE tipos_reservas (
@@ -61,11 +61,15 @@ CREATE TABLE reservas (
     UNIQUE (salon_id, fecha)
 );
 
+
+
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- Insertar datos en tablas base
 
-INSERT INTO usuarios (usuario, contrasenia) VALUES
+
+INSERT INTO users (username, pass) VALUES
 ('alvarowau', 'alvarowau'),
 ('hotel', 'Brianda23$');
 
