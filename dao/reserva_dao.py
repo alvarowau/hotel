@@ -1,11 +1,12 @@
-from dao.queries import (
-    reserva_dao_create,
-    reserva_dao_details_delete,
-    reserva_dao_update,
-    reservas_dao_find_all,
-    reservas_dao_find_byId,
-    reserva_dao_find_all_by_id_salones,
-    reserva_dao_is_date_dispon
+from dao.queries_reservas import (
+    create,
+    delete,
+    details_delete,
+    find_all,
+    find_all_by_id_salones,
+    find_byId,
+    is_date_dispon,
+    update,
 )
 from model.reserva import Reserva
 
@@ -48,7 +49,7 @@ class ReservaDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(reservas_dao_find_all)
+                cursor.execute(find_all)
                 result = cursor.fetchall()
                 lista_reserva = list()
                 for res in result:
@@ -72,7 +73,7 @@ class ReservaDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(reservas_dao_find_byId, (id,))
+                cursor.execute(find_byId, (id,))
                 result = cursor.fetchone()
                 return self.convertir_reserva(result)
             finally:
@@ -93,7 +94,7 @@ class ReservaDao:
             cursor = self.conexion.cursor(dictionary=True)
             try:
                 cursor.execute(
-                    reserva_dao_create,
+                    create,
                     (
                         reserva.tipo_reserva_id,
                         reserva.salon_id,
@@ -125,7 +126,7 @@ class ReservaDao:
             cursor = self.conexion.cursor(dictionary=True)
             try:
                 cursor.execute(
-                    reserva_dao_update,
+                    update,
                     (
                         reserva.tipo_reserva_id,
                         reserva.salon_id,
@@ -161,7 +162,7 @@ class ReservaDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(reserva_dao_details_delete, (id_reserva,))
+                cursor.execute(details_delete, (id_reserva,))
                 result = cursor.fetchone()
                 return f"{result['Nombre']} {result['Apellidos']} en la fecha {result['fecha']}"
             finally:
@@ -179,7 +180,7 @@ class ReservaDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(reserva_dao_find_all_by_id_salones,(id_salon,))
+                cursor.execute(find_all_by_id_salones, (id_salon,))
                 result = cursor.fetchall()
                 lista_reserva = list()
                 for res in result:
@@ -191,11 +192,26 @@ class ReservaDao:
 
     def is_fecha_dispon(self, salon_id, fecha):
         if self.conexion:
-            cursor =self.conexion.cursor()
+            cursor = self.conexion.cursor()
             try:
-                cursor.execute(reserva_dao_is_date_dispon, (salon_id, fecha))
+                cursor.execute(is_date_dispon, (salon_id, fecha))
                 result = cursor.fetchone()
                 return not result[0] > 0
             finally:
                 cursor.close()
         return False
+
+    def delete(self, id_reserva):
+        if self.conexion:
+            cursor = self.conexion.cursor()
+            try:
+                cursor.execute(delete, (id_reserva,))
+                self.conexion.commit()
+                return cursor.rowcount > 0
+            except Exception:
+                self.conexion.rollback()
+                return False
+            finally:
+                cursor.close()
+        else:
+            return None

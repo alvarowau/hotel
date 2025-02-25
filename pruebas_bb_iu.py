@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication
-from controller.conexion_controller import ConexionController
+from controller.controller_conexion import ConexionController
 
 datos_conexion = {
     "host": "localhost",

@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMainWindow
-from controller.clientes_controller import ClientesController
-from controller.reservas_controller import ReservasController
+from controller.controller_clientes import ClientesController
+from controller.controller_reservas import ReservasController
 from iu.iu_main_windows import Ui_HOTEL
 
 

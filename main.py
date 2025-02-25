@@ -2,9 +2,9 @@ import sys
 from PySide6.QtWidgets import QApplication
 from bbdd.conexion_mysql import MySQLConnectionManager
 from bbdd.comprobar_conexion import ComprobadorMySQL
-from controller.conexion_controller import ConexionController
+from controller.controller_conexion import ConexionController
 from controller.controller_login import LoginController
-from controller.main_controller import MainController
+from controller.controller_main import MainController
 
 datos_conexion = {
     "host": "localhost",

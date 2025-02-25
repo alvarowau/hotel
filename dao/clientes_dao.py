@@ -1,12 +1,11 @@
-from xmlrpc.client import Boolean
-from dao.queries import (
-    cliente_dao_create,
-    cliente_dao_desctivate,
-    cliente_dao_find_all_actives,
-    cliente_dao_find_by_id,
-    cliente_dao_find_nombre_by_id,
-    cliente_dao_update,
-    cliente_dao_exit_num_identificacion,
+from dao.queries_clientes import (
+    create,
+    desctivate,
+    exit_num_identificacion,
+    find_all_actives,
+    find_by_id,
+    find_nombre_by_id,
+    update,
 )
 from model.cliente import Cliente
 
@@ -54,7 +53,7 @@ class ClienteDao:
         """
         if self.conexion:
             cursor = self.conexion.cursor()
-            cursor.execute(cliente_dao_find_nombre_by_id, (id_cliente,))
+            cursor.execute(find_nombre_by_id, (id_cliente,))
             result = cursor.fetchone()
             cursor.close()
             if result:
@@ -73,7 +72,7 @@ class ClienteDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(cliente_dao_find_all_actives)
+                cursor.execute(find_all_actives)
                 result = cursor.fetchall()
                 lista_cliente = list()
                 for clie in result:
@@ -97,9 +96,11 @@ class ClienteDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(cliente_dao_find_by_id, (id,))
+                cursor.execute(find_by_id, (id,))
                 result = cursor.fetchone()
-                return self.convertir_cliente(result)
+                if result:
+                    return self.convertir_cliente(result)
+                return None
             finally:
                 cursor.close()
         return None
@@ -139,7 +140,7 @@ class ClienteDao:
             cursor = self.conexion.cursor(dictionary=True)
             try:
                 cursor.execute(
-                    cliente_dao_update,
+                    update,
                     (
                         nombre,
                         apellidos,
@@ -172,7 +173,7 @@ class ClienteDao:
         if self.conexion:
             cursor = self.conexion.cursor(dictionary=True)
             try:
-                cursor.execute(cliente_dao_desctivate, (id,))
+                cursor.execute(desctivate, (id,))
                 self.conexion.commit()
                 return cursor.rowcount > 0
             finally:
@@ -193,7 +194,7 @@ class ClienteDao:
             cursor = self.conexion.cursor(dictionary=True)
             try:
                 cursor.execute(
-                    cliente_dao_create,
+                    create,
                     (
                         cliente.Nombre,
                         cliente.Apellidos,
@@ -226,9 +227,7 @@ class ClienteDao:
         if self.conexion:
             cursor = self.conexion.cursor()
             try:
-                cursor.execute(
-                    cliente_dao_exit_num_identificacion, (numero_identificacion,)
-                )
+                cursor.execute(exit_num_identificacion, (numero_identificacion,))
                 result = cursor.fetchone()  # Recupera el primer valor del resultado
                 return result[0] > 0  # Si el conteo es mayor que 0, existe
             finally:

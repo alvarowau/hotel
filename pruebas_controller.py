@@ -3,7 +3,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 
 from bbdd.conexion_mysql import MySQLConnectionManager
-from controller.main_controller import MainController
+from controller.controller_main import MainController
 
 
 def devolver_conection():
