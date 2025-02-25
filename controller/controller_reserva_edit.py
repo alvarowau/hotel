@@ -8,7 +8,11 @@ from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
 from iu.iu_reserva_edit import Ui_reserva_edit
 from model.reserva import Reserva
-from util.mostrar_mensajes import mostrar_error, mostrar_informacion
+from util.mostrar_mensajes import (
+    mostrar_advertencia,
+    mostrar_error,
+    mostrar_informacion,
+)
 
 
 class ControladorReservas(QDialog):
@@ -89,36 +93,46 @@ class ControladorReservas(QDialog):
             self.ui.boton_derecho_pushButton.setText("Editar")
             self.llenar_campos_edicion()
             self._semaforo_campos(False)
-            self.ui.boton_derecho_pushButton.clicked.connect(self._configurar_para_editar)
-            self.ui.boton_izquierdo_pushButton.clicked.connect(
-                self._eliminar_reserva
+            self.ui.boton_derecho_pushButton.clicked.connect(
+                self._configurar_para_editar
             )
+            self.ui.boton_izquierdo_pushButton.clicked.connect(self._eliminar_reserva)
         else:
             mostrar_error("No se ha podido recuperar la reserva")
             self.accept()
+
     def _configurar_para_editar(self):
         self._semaforo_campos(True)
         self.ui.boton_izquierdo_pushButton.setVisible(False)
         self.ui.boton_derecho_pushButton.setText("Guardar")
         self.ui.boton_derecho_pushButton.clicked.connect(self._guardar_modificacion)
-        #
 
-
-    # !Falta terminar de implementar este metodo
+    def _comprobar_fechas_modificacion(self, datos):
+        if self.reserva_pasada:
+            if (
+                str(self.reserva_pasada.fecha) == datos["fecha"]
+                and self.reserva_pasada.salon_id == datos["salon_id"]
+            ):
+                return True
+            else:
+                if self.reserva_dao.is_fecha_dispon(
+                    fecha=datos["fecha"], salon_id=datos["salon_id"]
+                ):
+                    return True
+                else:
+                    mostrar_error("La fecha no esta disponible")
+                    return False
+        else:
+            mostrar_error("Ocurrio un error")
+            return False
 
     def _guardar_modificacion(self):
         datos = self._obtener_datos_reserva()
-        # * Pensar como podriamos llevar esto a otro metodo 
-        if self.reserva_pasada:
-            if str(self.reserva_pasada.fecha) == datos['fecha'] and self.reserva_pasada.salon_id == datos['salon_id']:
-                is_modificable = True
+        if self._comprobar_fechas_modificacion(datos):
+            if self.reserva_dao.update(Reserva.from_dict(datos)):
+                mostrar_advertencia("La reserva se modifico correctamente")
             else:
-                if self.reserva_dao.is_fecha_dispon(fecha=datos['fecha'],salon_id=datos['salon_id']):
-                    is_modificable = True
-                else:
-                    is_modificable = False
-        else:
-            mostrar_error("Ocurrio un error")
+                mostrar_error("La reserva no pudo ser modifcada")
 
         print(f"quiere modificar la reserva: {datos}")
 
@@ -146,7 +160,7 @@ class ControladorReservas(QDialog):
                 else self.reserva_pasada.ocupacion
             )
 
-    def _semaforo_campos(self, semaforo:bool):
+    def _semaforo_campos(self, semaforo: bool):
         self.ui.cliente_comboBox.setEnabled(semaforo)
         self.ui.fecha_dateEdit.setEnabled(semaforo)
         self.ui.salon_comboBox.setEnabled(semaforo)
@@ -184,9 +198,11 @@ class ControladorReservas(QDialog):
             "ocupacion": self.ui.asistentes_spinBox.value(),
             "fecha": self.ui.fecha_dateEdit.date().toString("yyyy-MM-dd"),
             "jornadas": self.ui.jornadas_spinBox.value() if tipo_reserva_id == 3 else 0,
-            "habitaciones": self.ui.habitaciones_checkBox.isChecked()
-            if tipo_reserva_id == 3
-            else False,
+            "habitaciones": (
+                self.ui.habitaciones_checkBox.isChecked()
+                if tipo_reserva_id == 3
+                else False
+            ),
         }
 
     def _guardar_reserva(self):
@@ -258,7 +274,7 @@ class ControladorReservas(QDialog):
                 tipo_reserva.nombre, tipo_reserva.tipo_reserva_id
             )
 
-    def _establecer_fecha_por_defecto(self, fecha = None):
+    def _establecer_fecha_por_defecto(self, fecha=None):
         """
         Establece la fecha en la interfaz.
 
