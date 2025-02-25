@@ -47,19 +47,21 @@ class ReservasController(QWidget):
             self.abrir_modal(id_salon)
         else:
             mostrar_advertencia("Debe selecionar un salon")
+
     def saber_mas(self):
         """Lógica para mostrar más información sobre la reserva seleccionada."""
-        if self.reserva_seleccionada:
-            print(f"Más información de la reserva: {self.reserva_seleccionada}")
+        index = self.ui.reservas_tableView.selectedIndexes()
+        if index:
+            id_reserva = self.model.item(index[0].row(),0).text()
+            self.abrir_modal(0, id_reserva)
         else:
-            print("Selecciona una reserva", "warning")
+            mostrar_error("Debe selecionar una reserva")
 
     def abrir_modal(self, id_salon, id_reserva = None):
-
         ventana_edicion = ControladorReservas(
-            conexion=self.conexion,
-            id_reserva=id_reserva,
-            id_tipo_salon=id_salon
+            id_salon,
+            self.conexion,
+            reserva_id=id_reserva
         )
         ventana_edicion.exec_()
         self.recargar_tabla()
