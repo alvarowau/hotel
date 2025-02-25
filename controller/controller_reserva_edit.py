@@ -8,7 +8,7 @@ from dao.tipo_cocina_dao import TipoCocinaDao
 from dao.tipo_reserva_dao import TipoReservasDao
 from iu.iu_reserva_edit import Ui_reserva_edit
 from model.reserva import Reserva
-from util.mostrar_mensajes import mostrar_error
+from util.mostrar_mensajes import mostrar_error, mostrar_informacion
 
 # ! modificar el limite de la fecha
 
@@ -124,28 +124,22 @@ class ControladorReservas(QDialog):
         else:
             datos["jornadas"] = 0
             datos["habitaciones"] = False
-        # Retornar el diccionario con todos los datos
         return datos
 
-    # ! terminar este metodo para continuar
     def _guardar_reserva_nueva(self):
         """Guarda una nueva reserva en la base de datos."""
         datos = self._recoger_datos()
         if self.reserva_dao.is_fecha_dispon(datos["salon_id"], datos["fecha"]):
-            """reserva = Reserva(
-                tipo_reserva_id=datos["tipo_reserva_id"],
-                salon_id=datos["salon_id"],
-                tipo_cocina_id=datos["tipo_cocina_id"],
-                id_cliente=datos["id_cliente"],
-                fecha=datos["fecha"],
-                ocupacion=datos["ocupacion"],
-                jornadas=datos["jornadas"],
-                habitaciones=datos["habitaciones"],
-            )"""
             reserva_dos = Reserva.from_dict(datos)
-            print(reserva_dos)
+            respuesta = self.reserva_dao.create(reserva_dos)
+            if respuesta:
+                mostrar_informacion("La reserva ha sido creada")
+                self._salir_pantalla()
+            else:
+                mostrar_error("La reserva no se ha podido crear")
         else:
             mostrar_error("La fecha no esta disponible para este salon")
+
 
     def _iniciar_daos(self):
         """Inicializa los DAOs necesarios."""
