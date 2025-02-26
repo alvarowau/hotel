@@ -7,24 +7,53 @@ from PySide6.QtGui import QDesktopServices
 from iu.iu_acerca_de import Ui_a
 
 
-
 class AcercaDeController(QWidget):
+    """
+    Controlador para la ventana "Acerca De".
+
+    Esta clase gestiona la lógica y la interacción de la interfaz de usuario
+    de la ventana "Acerca De", que muestra información sobre la aplicación.
+    """
+
     def __init__(self, parent=None):
+        """
+        Inicializa el controlador "Acerca De".
+
+        Crea una instancia de `AcercaDeController`, configura la interfaz de usuario
+        cargada desde el archivo `iu_acerca_de.Ui_a` y conecta los eventos
+        de los widgets (en este caso, el botón "Repositorio").
+
+        Args:
+            parent (QWidget, optional): Widget padre del controlador. Por defecto None.
+        """
         super().__init__(parent)
         self.ui = Ui_a()
         self.ui.setupUi(self)
 
-        # Conecta el botón "Repositorio" a una función para abrir un enlace
+        # Conecta el botón "Repositorio" a la función `abrir_repositorio`
         self.ui.pushButton.clicked.connect(self.abrir_repositorio)
 
     def abrir_repositorio(self):
         """
-        Función para abrir un enlace al repositorio (ejemplo).
-        Reemplaza 'URL_DEL_REPOSITORIO' con la URL real del repositorio.
+        Abre el navegador web con la URL del repositorio del proyecto.
+
+        Utiliza `QDesktopServices.openUrl` para abrir la URL especificada
+        en el navegador web predeterminado del sistema operativo.
+
+        Raises:
+            Ninguna excepción se lanza explícitamente, pero `QDesktopServices.openUrl`
+            podría fallar si no hay un navegador web configurado o si la URL es inválida.
+
+        Examples:
+            Para abrir el repositorio del proyecto (ejemplo con una URL ficticia):
+
+            >>> controller = AcercaDeController() # Crear instancia del controlador
+            >>> controller.abrir_repositorio()    # Llamar a la función para abrir el repo
+            # (Esto abriría "https://github.com/alvarowau/hotel" en el navegador)
         """
         url = QUrl(
-            "https://github.com/usuario/repositorio_ejemplo"
-        )  # Reemplazar con la URL real
+            "https://github.com/alvarowau/hotel"
+        )
         QDesktopServices.openUrl(url)
 
 
@@ -34,10 +63,10 @@ if __name__ == "__main__":
     app = QApplication([])
     stacked_widget = QStackedWidget()
 
-    # Crea una instancia del controlador
+    # Crea una instancia del controlador "Acerca De"
     acerca_de_controller = AcercaDeController()
 
-    # Añade el controlador al stackedWidget
+    # Añade el controlador al StackedWidget
     stacked_widget.addWidget(acerca_de_controller)
 
     stacked_widget.setCurrentWidget(
