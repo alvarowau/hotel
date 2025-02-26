@@ -132,7 +132,7 @@ Este proyecto se distribuye bajo la Licencia MIT. Consulta el archivo `LICENSE` 
 [Dashboard]: images/bienvenida.png "Interfaz principal"
 [![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera]][Dashboard]
 
-![Configuración de la base de datos](images/configuracion_db.png)
+![Configuración de la base de datos](images/configuracion_bbdd.png)
 
 Esta pantalla aparecerá al inicio si la aplicación no puede conectarse a la base de datos configurada. Aquí, podrás especificar los detalles de conexión a la base de datos MySQL, incluyendo el host, puerto, usuario, contraseña y nombre de la base de datos (`hotel_db`). Asegúrate de que la base de datos esté en ejecución y que el esquema `database.sql` haya sido importado correctamente.
 
