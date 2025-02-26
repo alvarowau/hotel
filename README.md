@@ -124,12 +124,11 @@ Este proyecto se distribuye bajo la Licencia MIT. Consulta el archivo `LICENSE` 
 
 ### Autor
 
-[alvarowau](https://github.com/alvarowau)
+[alvarowau]
 
 
 ## Algunas fotos
 
-[![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera]](images/bienvenida.png")
 
 ![Configuración de la base de datos](images/configuracion_bbdd.png)
 
