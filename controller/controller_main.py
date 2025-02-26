@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QMainWindow
 from controller.controller_acerca_de import AcercaDeController
 from controller.controller_clientes import ClientesController
 from controller.controller_documentacion import ReadMeController
+from controller.controller_bienvenida import BienvenidaWidget
 from controller.controller_reservas import ReservasController
 from iu.iu_main_windows import Ui_HOTEL
 
@@ -25,7 +26,11 @@ class MainController(QMainWindow):
         self.readme_controller = ReadMeController(self)
         self.readme_controller.load_readme("README.md")  # Cargar el archivo README
 
+        # Crear el Widget de Bienvenida
+        self.bienvenida_widget = BienvenidaWidget()
+
         # Agregar las vistas al QStackedWidget
+        self.ui.stackedWidget.addWidget(self.bienvenida_widget)  # Widget de Bienvenida
         self.ui.stackedWidget.addWidget(self.clientes_controller)  # Vista de clientes
         self.ui.stackedWidget.addWidget(self.reserva_controller)  # Vista de reservas
         self.ui.stackedWidget.addWidget(self.acerca_de_controller)  # Vista "Acerca de"
@@ -36,6 +41,13 @@ class MainController(QMainWindow):
         self.ui.actionReservar.triggered.connect(self.mostrar_reservas)
         self.ui.actionAcerca_de.triggered.connect(self.mostrar_acerca_de)
         self.ui.actionDocumentaci_n.triggered.connect(self.mostrar_readme)
+
+        # Mostrar el Widget de Bienvenida al inicio
+        self.mostrar_bienvenida()
+
+    def mostrar_bienvenida(self):
+        """Cambia la vista al widget de bienvenida."""
+        self.ui.stackedWidget.setCurrentWidget(self.bienvenida_widget)
 
     def mostrar_clientes(self):
         """Cambia la vista a la ventana de clientes dentro del QStackedWidget."""
