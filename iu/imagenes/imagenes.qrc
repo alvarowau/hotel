@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="prefijoNuevo">
+    <file>acerca_de_2.png</file>
+    <file>acerca_de_imagen.png</file>
+  </qresource>
+</RCC>
