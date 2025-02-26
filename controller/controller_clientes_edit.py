@@ -22,8 +22,8 @@ class ControladorClientesEdit(QDialog):
     Attributes:
         conexion: Conexión a la base de datos.
         cliente_dao (ClienteDao): Objeto para interactuar con la capa de acceso a datos de clientes.
-        cliente_edicion (Cliente | None): Cliente que se está editando, si es None, se está creando un nuevo cliente.
-        id_cliente (int | None): ID del cliente que se está editando. Si es None, se está creando un nuevo cliente.
+        cliente_edicion (Cliente | None): Cliente que se está editando. None si se está creando un nuevo cliente.
+        id_cliente (int | None): ID del cliente que se está editando. None si se está creando un nuevo cliente.
         ui (Ui_clientes_edit): Interfaz de usuario generada por Qt Designer.
     """
 
@@ -33,7 +33,7 @@ class ControladorClientesEdit(QDialog):
 
         Args:
             conexion: Conexión a la base de datos.
-            id_cliente (int | None): ID del cliente que se está editando. Si es None, se está creando un nuevo cliente.
+            id_cliente (int | None): ID del cliente a editar. None si se crea un nuevo cliente.
         """
         super().__init__()
         self.ui = Ui_clientes_edit()

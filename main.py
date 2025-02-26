@@ -13,7 +13,7 @@ datos_conexion = {
     "user": "root",
     "password": "root",
     "database": "hotel",
-    "port": "3308",
+    "port": "3307",
 }
 
 app = None
