@@ -1,7 +1,7 @@
 # Sistema de Gestión Hotelera - Aplicación de Escritorio PySide6
 
 
-![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera](imagenes/bienvenida.png)
+![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera](images/bienvenida.png)
 
 
 **Una aplicación de escritorio robusta para la gestión eficiente de reservas hoteleras, construida con Python y PySide6.**
@@ -126,6 +126,24 @@ Este proyecto se distribuye bajo la Licencia MIT. Consulta el archivo `LICENSE` 
 
 [alvarowau](https://github.com/alvarowau)
 
-[\![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera]][Dashboard]
 
-[Dashboard]: [https://user-images.githubusercontent.com/149747954/294493847-3294491c-843c-44a3-b953-78319a947770.png]
+## Algunas fotos
+
+[Dashboard]: imagenes/bienvenida.png "Interfaz principal"
+[![Imagen de la Interfaz de Usuario de la Aplicación de Escritorio del Sistema de Gestión Hotelera]][Dashboard]
+
+![Configuración de la base de datos](imagenes/configuracion_db.png)
+
+Esta pantalla aparecerá al inicio si la aplicación no puede conectarse a la base de datos configurada. Aquí, podrás especificar los detalles de conexión a la base de datos MySQL, incluyendo el host, puerto, usuario, contraseña y nombre de la base de datos (`hotel_db`). Asegúrate de que la base de datos esté en ejecución y que el esquema `database.sql` haya sido importado correctamente.
+
+![Gestión de clientes](imagenes/clientes.png)
+
+Esta es la pantalla principal para la gestión de clientes, donde podrás ver, agregar, editar y eliminar información de los clientes.
+
+![Acerca de](imagenes/acerca_de.png)
+
+Esta pantalla muestra información sobre la aplicación, incluyendo la versión, el autor y otros detalles relevantes.
+
+![Inicio de sesión](imagenes/login.png)
+
+Esta es la pantalla de inicio de sesión, donde los usuarios pueden ingresar sus credenciales para acceder a la aplicación. Aparecerá después de que la conexión a la base de datos se haya configurado correctamente.
